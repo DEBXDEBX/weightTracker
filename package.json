@@ -1,0 +1,19 @@
+{
+  "name": "weight-tracker",
+  "version": "1.0.0",
+  "description": "weight-tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "pack": "build --dir",
+    "electron": "electron .",
+    "electronConsole": ".\\node_modules\\electron\\dist\\electron.exe .",
+    "startC": ".\\node_modules\\electron\\dist\\electron.exe ."
+  },
+  "author": "David E Berkheimer",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.9"
+  }
+}
