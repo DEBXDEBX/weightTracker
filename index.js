@@ -135,7 +135,7 @@ function loadYear() {
         }
 
         if (data) {
-          if (data.fileType === "ElectronMomMoney2019September") {
+          if (data.fileType === "ElectronWeightTracker2019September") {
             console.log("This is a valid file");
             // set filepath: This is in case you moved your file
             data.fileNamePath = filepath;
@@ -145,7 +145,7 @@ function loadYear() {
             mainWindow.webContents.send("yearObj:load", data);
           } else {
             let message =
-              "This is not a valid ElectronMomMoney2019September file";
+              "This is not a valid ElectronWeightTracker2019September file";
             let msgType = "error";
             mainWindow.webContents.send("Display:showAlert", {
               message,
@@ -165,21 +165,6 @@ function showSettingsForm() {
 function setFontSize(fontSize) {
   mainWindow.webContents.send("FontSize:change", fontSize);
 } // End setFontSize(fontSize)
-
-// this listens for the addWindow
-ipcMain.on("fileCab:add", (event, name) => {
-  // close the addWindow
-  addWindow.close();
-  // this is for extsions
-  let myOptions = {
-    filters: [{ name: "Custom File Type", extensions: ["deb"] }]
-  };
-  // open save dialog to create a fileNamePath
-  dialog.showSaveDialog(null, myOptions, fileNamePath => {
-    // send all info in an object to script.js
-    mainWindow.webContents.send("fileCab:add", { fileNamePath, name });
-  });
-}); // End ipcMain.on("fileCab:add"
 
 // Top Menu
 const menuTemplate = [

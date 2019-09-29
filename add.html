@@ -43,14 +43,14 @@
             autofocus
             class="form-control"
             id="name"
-            placeholder="File Cabinet Name"
+            placeholder="New Year"
           />
         </div>
         <div class="form-group">
           <input
             class="btn btn-primary form-control"
             type="submit"
-            value="Add New File Cabinet"
+            value="Add New Year"
           />
         </div>
         <div class="form-group">
@@ -74,7 +74,7 @@
         event.preventDefault();
         let { value } = document.querySelector("#name");
         value = value.trim();
-        ipcRenderer.send("fileCab:add", value);
+        ipcRenderer.send("year:add", value);
       });
 
       document.querySelector("#cancel").addEventListener("click", event => {

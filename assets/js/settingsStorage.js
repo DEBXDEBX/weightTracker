@@ -1,6 +1,6 @@
 class SettingsStorage {
   constructor() {
-    this.fileName = "momsMoneySettings9142019DEBX";
+    this.fileName = "WeightTrackerSettings9182019DEBX";
   } // End constructor
 
   //Method

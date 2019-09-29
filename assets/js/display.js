@@ -45,11 +45,6 @@ class Display {
     this.elements.monthList.innerHTML = "";
   } // End clearYearDisplay()
 
-  //Method
-  clearTransactionDisplay() {
-    this.elements.transactionList.innerHTML = "";
-  }
-
   // Method
   paintYearTabs(mapedArray) {
     this.displayNone(this.elements.monthHeading);
@@ -78,10 +73,10 @@ class Display {
   // Method
   paintMonthTabs(mapedArray) {
     this.clearMonthDisplay();
-    this.clearTransactionDisplay();
-    this.displayNone(this.elements.transactionHeading);
-    this.displayNone(this.elements.transactionList);
-    this.displayNone(this.elements.totalH1);
+    // this.clearTransactionDisplay();
+    // this.displayNone(this.elements.transactionHeading);
+    // this.displayNone(this.elements.transactionList);
+
     this.displayNone(this.elements.monthList);
     this.displayBlock(this.elements.monthList);
     this.displayNone(this.elements.monthHeading);
@@ -100,55 +95,6 @@ class Display {
     let tabList = document.getElementsByClassName("month");
     this.colorSetOfTabs(tabList);
   } // End paintFileCabTabs(mapedArray)
-
-  //Method
-  paintTransactions(transactionArray) {
-    this.clearTransactionDisplay();
-    this.displayNone(this.elements.totalH1);
-    this.displayNone(this.elements.myForm);
-    this.displayNone(this.elements.transactionHeading);
-    this.displayBlock(this.elements.totalH1);
-    this.displayBlock(this.elements.transactionHeading);
-    this.displayBlock(this.elements.myForm);
-    // build div
-    let totalPrice = 0;
-    //set subTotal and total
-    transactionArray.forEach(transaction => {
-      totalPrice = totalPrice + transaction.price + transaction.tax;
-      totalPrice = totalPrice;
-      transaction.subTotal = totalPrice;
-    });
-    // make variable for html
-    let html = "";
-    transactionArray.forEach((transaction, index) => {
-      if (transaction.price <= 0) {
-        html += `<li data-index="${index}" class="transaction red"><span title='Delete'><i class="fas fa-trash-alt deleteTrans"></i></span><h4>${
-          transaction.date
-        }</h4><h4>${
-          transaction.storeItem
-        }</h4><h4>Price: $${transaction.price.toFixed(
-          2
-        )}</h4><h4>Tax: $${transaction.tax.toFixed(
-          2
-        )}</h4><h4>$${transaction.subTotal.toFixed(2)}</h4></li>`;
-      } else {
-        html += `<li data-index="${index}" class="transaction"><span title='Delete'><i class="fas fa-trash-alt deleteTrans"></i></span><h4>${
-          transaction.date
-        }</h4><h4>${
-          transaction.storeItem
-        }</h4><h4>Price: $${transaction.price.toFixed(
-          2
-        )}</h4><h4>Tax: $${transaction.tax.toFixed(
-          2
-        )}</h4><h4>$${transaction.subTotal.toFixed(2)}</h4></li>`;
-      }
-    });
-    // paint transactions
-    this.elements.transactionList.innerHTML = html;
-    this.displayBlock(this.elements.transactionList);
-    this.elements.totalH1.innerHTML = `Total = $${totalPrice.toFixed(2)}`;
-    this.displayBlock(this.elements.totalH1);
-  } // End paintTransactions(transactionArray)
 
   //Method
   colorSetOfTabs(tabList) {
@@ -181,9 +127,9 @@ class Display {
     //  hide everything
     this.displayNone(this.elements.yearList);
     this.displayNone(this.elements.monthList);
-    this.displayNone(this.elements.transactionList);
+    // this.displayNone(this.elements.transactionList);
     this.displayNone(this.elements.monthHeading);
-    this.displayNone(this.elements.totalH1);
+    // this.displayNone(this.elements.totalH1);
     this.displayNone(this.elements.transactionHeading);
     this.displayNone(this.elements.myForm);
     this.displayNone(this.elements.yearHeading);

@@ -11,10 +11,7 @@ let { dialog } = app;
 let fs = require("fs");
 const electron = require("electron");
 const { ipcRenderer } = electron;
-//select form
-let storeItem = document.querySelector("#storeItem");
-let price = document.querySelector("#price");
-let taxBox = document.querySelector("#taxInput");
+
 //Select audio files
 const addAudio = document.querySelector("#addAudio");
 const addImageAudio = document.querySelector("#addImageAudio");
@@ -32,42 +29,29 @@ const arrayOfYearObjs = [];
 const el = new Elements();
 // create display object
 const display = new Display(el, $);
-// create tax percent
-let taxRate = 0.06;
+
 // create year index
 let yearIndex = -243;
 // create month index
 let monthIndex = -243;
 // this is for the fontSize
 let root = document.querySelector(":root");
-// auto load heck box
+// auto load check box
 let checkBox = document.querySelector("#autoLoad");
 // temp hold for array
 let settingsArrayContainer;
 //The start of program exicution.
 window.onload = function() {
-  addDateToForm();
   startUp();
 };
-// addDateToForm
-function addDateToForm() {
-  let options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
-  let date = new Date();
 
-  document.querySelector("#date").value = date.toLocaleDateString();
-}
 //startUp
 function startUp() {
   //get data from settings obect
   let settingsStorage = new SettingsStorage();
   let settings = settingsStorage.getSettingsFromFile();
 
-  if (settings.type === "momMoney") {
+  if (settings.type === "weightTracker") {
     // set the holding array
     settingsArrayContainer = settings.filePathArray;
     // loadsettings
@@ -146,7 +130,7 @@ function readFileContents(filepath) {
       }
 
       if (data) {
-        if (data.fileType === "ElectronMomMoney2019September") {
+        if (data.fileType === "ElectronWeightTracker2019September") {
           // set filepath: This is in case you moved your file
           data.fileNamePath = filepath;
 
@@ -166,7 +150,7 @@ function readFileContents(filepath) {
             display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
             return;
           }
-          // create a file cab object
+          // create a yearObj object
           let newYearObject = new YearObject(
             data.name,
             data.fileNamePath,
@@ -183,7 +167,8 @@ function readFileContents(filepath) {
           display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
           return;
         } else {
-          let message = "This is not a valid ElectronFileCab2019April file";
+          let message =
+            "This is not a valid ElectronWeightTracker2019September file";
           let msgType = "error";
           display.showAlert(message, msgType);
         }
@@ -196,10 +181,7 @@ function loadUpSettingsForm() {
   let settings = settingsStorage.getSettingsFromFile();
   settingsArrayContainer = settings.filePathArray;
 
-  if (settings.type === "momMoney") {
-    //set the tax rate text input
-    document.querySelector("#taxRate").value = settings.taxRate;
-
+  if (settings.type === "weightTracker") {
     // set check box
     if (settings.autoLoad) {
       // check the box
@@ -238,9 +220,6 @@ function applySettings(settings) {
   if (settings.autoLoad === true) {
     document.querySelector("#autoLoad").checked = true;
   }
-  // set tax variable
-  taxRate = settings.taxRate;
-  document.querySelector("#taxSpan").textContent = `${settings.taxRate}%`;
 
   switch (settings.fontSize) {
     case "x-small":
@@ -281,6 +260,15 @@ ipcRenderer.on("Display:showAlert", (event, dataObj) => {
 ipcRenderer.on("year:add", (event, dataObj) => {
   if (dataObj.name === "") {
     display.showAlert("You did not enter a name for the Year!", "error");
+    // redisplay
+    // get the names for all the years
+    // and then send them to the Display
+    display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
+    return;
+  }
+
+  if (isNaN(Number(dataObj.name))) {
+    display.showAlert("You did not enter a number for the Year!", "error");
     // redisplay
     // get the names for all the years
     // and then send them to the Display
@@ -481,106 +469,6 @@ el.monthList.addEventListener("click", e => {
     return;
   }
   tabAudio.play();
-  // get the array of Transactions and send it to display
-  display.paintTransactions(
-    arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex]
-      .arrayOfTransactions
-  );
-});
-
-// transaction form
-document.querySelector("#clear").addEventListener("click", e => {
-  btnAudio.play();
-  storeItem.value = "";
-  price.value = "";
-});
-
-document.querySelector("#transactionBtn").addEventListener("click", e => {
-  e.preventDefault();
-  let date = document.querySelector("#date").value.trim();
-  let storeItem = document.querySelector("#storeItem").value.trim();
-  let price = document.querySelector("#price").value.trim();
-
-  if (date === "") {
-    warningEmptyAudio.play();
-    display.showAlert("Please enter a date.", "error");
-    return;
-  }
-
-  if (storeItem === "") {
-    warningEmptyAudio.play();
-    display.showAlert("Please enter a store or item.", "error");
-    return;
-  }
-
-  if (price === "") {
-    warningEmptyAudio.play();
-    display.showAlert("Please enter a price", "error");
-    return;
-  }
-  price = Number(price);
-
-  if (isNaN(price)) {
-    warningNameTakenAudio.play();
-    display.showAlert("Please enter a number for the price!", "error");
-    return;
-  }
-  let newTransaction;
-  if (taxBox.checked) {
-    // create transaction with tax
-    let tax = price * taxRate;
-    newTransaction = new Transaction(date, storeItem, price, tax);
-    taxBox.checked = false;
-  } else {
-    // create transaction without tax
-    newTransaction = new Transaction(date, storeItem, price);
-  }
-  addAudio.play();
-  // push new transaction into array
-  arrayOfYearObjs[yearIndex].arrayOfMonthObjects[
-    monthIndex
-  ].arrayOfTransactions.push(newTransaction);
-  // save to disk
-  arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs);
-  // get the array of Transactions and send it to display
-  display.paintTransactions(
-    arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex]
-      .arrayOfTransactions
-  );
-});
-
-document.querySelector("#transactionList").addEventListener("click", e => {
-  // event delegation
-  if (e.target.classList.contains("deleteTrans")) {
-    if (!e.ctrlKey) {
-      warningNameTakenAudio.play();
-      display.showAlert(
-        "Please hold down control and click to delete",
-        "error"
-      );
-      return;
-    }
-
-    if (e.ctrlKey) {
-      console.log("control key down");
-      deleteAudio.play();
-      // get the index from the html
-      let Index = e.target.parentElement.parentElement.dataset.index;
-      let deleteIndex = parseInt(Index);
-
-      // delete transaction
-      arrayOfYearObjs[yearIndex].arrayOfMonthObjects[
-        monthIndex
-      ].arrayOfTransactions.splice(deleteIndex, 1);
-      // save to disk
-      arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs);
-      // get the array of Transactions and send it to display
-      display.paintTransactions(
-        arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex]
-          .arrayOfTransactions
-      );
-    }
-  }
 });
 
 // ***********************************************************
@@ -591,15 +479,13 @@ document.querySelector("#settingsSave").addEventListener("click", e => {
   e.preventDefault();
 
   // get form data to create a settings object
-  // get the taxRate
-  let taxRate = document.querySelector("#taxRate").value;
-  taxRate = Number(taxRate);
+
   // fontsize radio code
   let fontSizeValue = getRadioValue(el.settingsForm, "fontSize");
   let settingsStorage = new SettingsStorage();
   let settingsObj = new SettingsObj();
   // set the object values
-  settingsObj.taxRate = taxRate;
+
   settingsObj.fontSize = fontSizeValue;
   settingsObj.filePathArray = settingsArrayContainer;
   // set auto load true or false
