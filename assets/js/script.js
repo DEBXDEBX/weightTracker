@@ -434,9 +434,7 @@ el.yearList.addEventListener("click", e => {
   }
   tabAudio.play();
   // get the array of months and send it to display
-  display.paintMonthTabs(
-    mapOutKey("name", arrayOfYearObjs[yearIndex].arrayOfMonthObjects)
-  );
+  display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
 }); // End el.yearList.addEventListener()
 
 el.monthList.addEventListener("click", e => {

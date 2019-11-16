@@ -71,7 +71,7 @@ class Display {
   } // End paintFileCabTabs(mapedArray)
 
   // Method
-  paintMonthTabs(mapedArray) {
+  paintMonthTabs(array) {
     this.clearMonthDisplay();
     // this.clearTransactionDisplay();
     // this.displayNone(this.elements.transactionHeading);
@@ -86,8 +86,8 @@ class Display {
     // this will paint all month tabs
     // make variable for html
     let html = "";
-    mapedArray.forEach((element, index) => {
-      html += `<li data-index="${index}" class="month">${element}</li>`;
+    array.forEach((element, index) => {
+      html += `<li data-index="${index}" class="month">${element.name}</li>`;
     });
     // paint file cab tabs
     this.elements.monthList.innerHTML = html;
