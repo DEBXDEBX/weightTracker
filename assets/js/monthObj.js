@@ -1,6 +1,6 @@
 class MonthObject {
   constructor(name, weight = 0) {
     this.name = name;
-    weight = weight;
+    this.weight = weight;
   }
 } // End MonthObject class

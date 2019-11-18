@@ -69,7 +69,7 @@
           <source src="assets/sound/cancel.wav" type="audio/wav" />
         </audio>
 
-    <h1>Weigth Tracker</h1>
+    <h1>Weight Tracker</h1>
     <header>
       <h6 id="yearHeading">Year</h6>
       <nav>
@@ -89,88 +89,53 @@
       </nav>
     </section>
 
-    <h6 id="transactionHeading">Transactions</h6>
-
-    <nav>
-      <ul id="transactionList"></ul>
-    </nav>
-
-    <div id="totalDiv">
-      <h1 id="totalH1"></h1>
-    </div>
+    <h6 id="addWeightHeading">Add Weight<span id="addWeight"
+      ><i
+        data-toggle="tooltip"
+        title="Add Weight"
+        class="fas fa-plus"
+      ></i
+    ></span></h6>
 
     <form id="myForm">
+  
       <div class="form-group">
         <input
-          id="date"
+          id="weightInput"
           type="text"
           autofocus
           class="form-control"
-          placeholder="Date"
+          placeholder="weight"
         />
       </div>
 
-      <div class="form-group">
-        <input
-          id="storeItem"
-          type="text"
-          autofocus
-          class="form-control"
-          placeholder="Store/Item"
-        />
-      </div>
+
 
       <div class="form-group">
         <input
-          id="price"
-          type="text"
-          autofocus
-          class="form-control"
-          placeholder="price"
-        />
-      </div>
-
-      <div id="taxDiv" class="form-group">
-        <input id="taxInput" name="tax" type="checkbox" autofocus class="" />
-        <label for="tax">add tax<span id="taxSpan"></span></label>
-      </div>
-
-      <div class="form-group">
-        <input
-          id="transactionBtn"
+          id="weightAddBtn"
           class="btn btn-success form-control"
           type="submit"
-          value="Add Transaction"
+          value="Add Weight"
         />
       </div>
+ 
       <div class="form-group">
-        <button id="clear" class="btn btn-dark form-control" type="button">
-          Clear
+        <button
+          id="weightCancel"
+          class="btn btn-warning form-control"
+          type="button"
+        >
+          Cancel
         </button>
       </div>
+
+
     </form>
 
 
     
     <form id="settingsForm">
-      <!-- Theme -->
-      <div class="form-group setFlex">
-    
-          <label for="taxRate">Tax Rate</label>
-
-          <div class="form-group">
-            <input
-              id="taxRate"
-              name="taxRate"
-              type="text"
-              autofocus
-              class="form-control"
-              placeholder="Tax Rate"
-            />
-          </div>
-        </div>
-   
-
       <!-- Font Size -->
       <div class="form-group setFlex">
       <label for="fontSize">Pick a font size</label>

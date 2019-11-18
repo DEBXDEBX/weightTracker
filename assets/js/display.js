@@ -49,9 +49,7 @@ class Display {
   paintYearTabs(mapedArray) {
     this.displayNone(this.elements.monthHeading);
     this.displayNone(this.elements.monthList);
-    this.displayNone(this.elements.transactionHeading);
-    this.displayNone(this.elements.transactionList);
-    this.displayNone(this.elements.totalH1);
+    this.displayNone(this.elements.addWeightHeading);
     this.displayNone(this.elements.myForm);
     this.displayBlock(this.elements.yearHeading);
     this.displayBlock(this.elements.yearList);
@@ -73,9 +71,7 @@ class Display {
   // Method
   paintMonthTabs(array) {
     this.clearMonthDisplay();
-    // this.clearTransactionDisplay();
-    // this.displayNone(this.elements.transactionHeading);
-    // this.displayNone(this.elements.transactionList);
+    this.displayNone(this.elements.addWeightHeading);
 
     this.displayNone(this.elements.monthList);
     this.displayBlock(this.elements.monthList);
@@ -153,5 +149,15 @@ class Display {
       html += `<li data-index="${index}" class="autoLoad"><span title='Delete'><i class="fas fa-trash-alt deleteFile"></i></span>${element}</li>`;
     });
     this.elements.autoLoadList.innerHTML = html;
+  }
+
+  //Method
+  showAddWeightHeading() {
+    this.displayNone(this.elements.myForm);
+    this.displayBlock(this.elements.addWeightHeading);
+  }
+  //Method
+  showMyForm() {
+    this.displayBlock(this.elements.myForm);
   }
 } // End Display class
