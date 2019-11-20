@@ -484,7 +484,7 @@ el.monthList.addEventListener("click", e => {
 // form btn
 el.saveWeightBtn.addEventListener("click", e => {
   e.preventDefault();
-  console.log("saving");
+
   let weight = el.weightText.value.trim();
   if (!weight) {
     warning1Audio.play();
@@ -492,7 +492,7 @@ el.saveWeightBtn.addEventListener("click", e => {
     return;
   }
   weight = Number(weight);
-  console.log(weight);
+
   // set weight
   arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex].weight = weight;
   addAudio.play();
@@ -505,6 +505,7 @@ el.saveWeightBtn.addEventListener("click", e => {
 });
 // form btn
 el.cancelBtn.addEventListener("click", e => {
+  cancelAudio.play();
   el.myForm.reset();
   display.hideMyForm();
 });

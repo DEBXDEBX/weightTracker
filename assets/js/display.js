@@ -87,7 +87,7 @@ class Display {
         element.name
       }</h4></div><div class='weightDiv'><h4 data-index="${index}">${element.weight.toFixed(
         1
-      )}LB</h4></div></div>`;
+      )} LB</h4></div></div>`;
     });
     // paint file cab tabs
     this.elements.monthList.innerHTML = html;
