@@ -75,6 +75,7 @@ function startUp() {
 //*************************************************** */
 // Helper functions
 //*************************************************** */
+
 // Sort an array by it's name
 function sortArrayByName(array) {
   array.sort(function(a, b) {
@@ -444,6 +445,7 @@ el.yearList.addEventListener("click", e => {
 }); // End el.yearList.addEventListener()
 
 el.monthList.addEventListener("click", e => {
+  // this is for clicking on the month list
   if (!e.target.classList.contains("month")) {
     return;
   }
@@ -483,6 +485,23 @@ el.monthList.addEventListener("click", e => {
 el.saveWeightBtn.addEventListener("click", e => {
   e.preventDefault();
   console.log("saving");
+  let weight = el.weightText.value.trim();
+  if (!weight) {
+    warning1Audio.play();
+    display.showAlert("Please enter a weight!", "error");
+    return;
+  }
+  weight = Number(weight);
+  console.log(weight);
+  // set weight
+  arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex].weight = weight;
+  addAudio.play();
+  // save
+  arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs);
+  el.myForm.reset();
+  display.hideMyForm();
+  // get the array of months and send it to display
+  display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
 });
 // form btn
 el.cancelBtn.addEventListener("click", e => {
