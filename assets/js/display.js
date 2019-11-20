@@ -160,4 +160,8 @@ class Display {
   showMyForm() {
     this.displayBlock(this.elements.myForm);
   }
+  //Method
+  hideMyForm() {
+    this.displayNone(this.elements.myForm);
+  }
 } // End Display class
