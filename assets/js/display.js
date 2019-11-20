@@ -83,7 +83,7 @@ class Display {
     // make variable for html
     let html = "";
     array.forEach((element, index) => {
-      html += `<div class="mainDiv"><div class='myFlexItem'><h4 data-index="${index}">${
+      html += `<div class="mainDiv"><div class='myFlexItem'><h4 class="month" data-index="${index}">${
         element.name
       }</h4></div><div class='weightDiv'><h4 data-index="${index}">${element.weight.toFixed(
         1
@@ -91,9 +91,9 @@ class Display {
     });
     // paint file cab tabs
     this.elements.monthList.innerHTML = html;
-    // color tabs
-    let tabList = document.getElementsByClassName("month");
-    this.colorSetOfTabs(tabList);
+    // // color tabs
+    // let tabList = document.getElementsByClassName("mainDiv");
+    // this.colorSetOfTabs(tabList);
   } // End paintFileCabTabs(mapedArray)
 
   //Method
@@ -158,6 +158,7 @@ class Display {
   //Method
   showAddWeightHeading() {
     this.displayNone(this.elements.myForm);
+    this.displayNone(this.elements.addWeightHeading);
     this.displayBlock(this.elements.addWeightHeading);
   }
   //Method

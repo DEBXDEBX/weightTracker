@@ -143,26 +143,16 @@ h6 {
 }
 
 .myFlexItem {
-  /* background: #0af30a;
-  border-left: 4mm ridge #538956;
-  border-bottom: thick double #203c63;
-  margin: 20px 7px 20px 7px;
-  padding: 5px 10px 5px 10px;
-  /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7); */
-  /* box-shadow: 3px 3px 3px rgb(103, 241, 11);
-  border-radius: 10% / 50%; */
-}
-.weightDiv {
-  text-align: center;
-  /* display: block; */
-}
-.mainDiv {
   background: #0af30a;
   border-left: 4mm ridge #538956;
   border-bottom: thick double #203c63;
   margin: 20px 7px 20px 7px;
   padding: 5px 10px 5px 10px;
   /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7); */
-  box-shadow: 3px 3px 3px rgb(103, 241, 11);
+  /* box-shadow: 3px 3px 3px rgb(103, 241, 11);
+  */
   border-radius: 10% / 50%;
+}
+.weightDiv {
+  text-align: center;
 }
