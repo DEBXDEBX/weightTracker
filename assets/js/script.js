@@ -444,6 +444,9 @@ el.yearList.addEventListener("click", e => {
 }); // End el.yearList.addEventListener()
 
 el.monthList.addEventListener("click", e => {
+  if (!e.target.classList.contains("month")) {
+    return;
+  }
   // event delegation
   if (e.target.classList.contains("month")) {
     // set's the current target active
