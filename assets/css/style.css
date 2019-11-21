@@ -87,8 +87,7 @@ nav ul li:hover {
 } */
 #monthHeading,
 #myForm,
-#settingsForm,
-#addWeightHeading {
+#settingsForm {
   display: none;
 }
 /* The headings are h3  */

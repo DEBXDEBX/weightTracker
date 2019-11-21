@@ -92,7 +92,7 @@ class Display {
     // paint file cab tabs
     this.elements.monthList.innerHTML = html;
     // // color tabs
-    // let tabList = document.getElementsByClassName("mainDiv");
+    // let tabList = document.getElementsByClassName("myFlexItem");
     // this.colorSetOfTabs(tabList);
   } // End paintFileCabTabs(mapedArray)
 
@@ -127,10 +127,7 @@ class Display {
     //  hide everything
     this.displayNone(this.elements.yearList);
     this.displayNone(this.elements.monthList);
-    // this.displayNone(this.elements.transactionList);
     this.displayNone(this.elements.monthHeading);
-    // this.displayNone(this.elements.totalH1);
-    this.displayNone(this.elements.transactionHeading);
     this.displayNone(this.elements.myForm);
     this.displayNone(this.elements.yearHeading);
     //show settings form
@@ -156,14 +153,9 @@ class Display {
   }
 
   //Method
-  showAddWeightHeading() {
-    this.displayNone(this.elements.myForm);
-    this.displayNone(this.elements.addWeightHeading);
-    this.displayBlock(this.elements.addWeightHeading);
-  }
-  //Method
   showMyForm() {
     this.displayBlock(this.elements.myForm);
+    // this.elements.myForm.reset();
   }
   //Method
   hideMyForm() {

@@ -41,10 +41,10 @@ let checkBox = document.querySelector("#autoLoad");
 // temp hold for array
 let settingsArrayContainer;
 
-//This enables JQuery ToolTips
-$(document).ready(function() {
-  $('[data-toggle="tooltip"]').tooltip();
-});
+// //This enables JQuery ToolTips
+// $(document).ready(function() {
+//   $('[data-toggle="tooltip"]').tooltip();
+// });
 
 //The start of program exicution.
 window.onload = function() {
@@ -478,7 +478,9 @@ el.monthList.addEventListener("click", e => {
     return;
   }
   tabAudio.play();
-  display.showAddWeightHeading();
+  this.myForm.reset();
+  display.hideMyForm();
+  display.showMyForm();
 });
 
 // form btn
@@ -510,9 +512,6 @@ el.cancelBtn.addEventListener("click", e => {
   display.hideMyForm();
 });
 
-el.addWeightBtn.addEventListener("click", e => {
-  display.showMyForm();
-});
 // ***********************************************************
 // settings
 // *************************************************************

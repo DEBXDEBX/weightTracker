@@ -6,13 +6,11 @@ class Elements {
     // select headings
     this.yearHeading = document.querySelector("#yearHeading");
     this.monthHeading = document.querySelector("#monthHeading");
-    this.addWeightHeading = document.querySelector("#addWeightHeading");
 
     // // select forms
     this.myForm = document.querySelector("#myForm");
     this.settingsForm = document.querySelector("#settingsForm");
-    // select add show forms + / icon
-    this.addWeightBtn = document.querySelector("#addWeight");
+
     // select form btns
     this.saveWeightBtn = document.querySelector("#weightAddBtn");
     this.cancelBtn = document.querySelector("#weightCancel");
