@@ -22,6 +22,12 @@ const warningNameTakenAudio = document.querySelector("#warningNameTakenAudio");
 const tabAudio = document.querySelector("#tabAudio");
 const btnAudio = document.querySelector("#btnAudio");
 const cancelAudio = document.querySelector("#cancelAudio");
+// D3 variables
+let width = 600;
+let height = 400;
+let barPadding = 10;
+let numBars = 12;
+let barWidth = width / numBars - barPadding;
 //Global variable's
 // This is the Main array that holds all the year objects
 const arrayOfYearObjs = [];
@@ -75,6 +81,32 @@ function startUp() {
 //*************************************************** */
 // Helper functions
 //*************************************************** */
+
+function drawD3() {
+  document.querySelector("#svg").innerHTML = "";
+  d3.select("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .selectAll("rect")
+    .data(
+      arrayOfYearObjs[yearIndex].arrayOfMonthObjects.filter(function(d) {
+        return d.weight >= 0;
+      })
+    )
+    .enter()
+    .append("rect")
+    .attr("width", barWidth)
+    .attr("height", function(d) {
+      return d.weight;
+    })
+    .attr("y", function(d) {
+      return height - d.weight;
+    })
+    .attr("x", function(d, i) {
+      return (barWidth + barPadding) * i;
+    })
+    .attr("fill", "purple");
+}
 
 // Sort an array by it's name
 function sortArrayByName(array) {
@@ -442,6 +474,7 @@ el.yearList.addEventListener("click", e => {
   tabAudio.play();
   // get the array of months and send it to display
   display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
+  drawD3();
 }); // End el.yearList.addEventListener()
 
 el.monthList.addEventListener("click", e => {
@@ -504,6 +537,7 @@ el.saveWeightBtn.addEventListener("click", e => {
   display.hideMyForm();
   // get the array of months and send it to display
   display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
+  drawD3();
 });
 // form btn
 el.cancelBtn.addEventListener("click", e => {
