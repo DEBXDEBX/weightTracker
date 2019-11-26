@@ -547,11 +547,6 @@ el.yearList.addEventListener("click", e => {
 el.monthList.addEventListener("click", e => {
   // this is for clicking on the month list
   if (!e.target.classList.contains("month")) {
-    display.showAlert("You did not enter a number for the Year!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-    display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
   // event delegation
