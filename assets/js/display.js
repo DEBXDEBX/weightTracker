@@ -155,7 +155,6 @@ class Display {
   //Method
   showMyForm() {
     this.displayBlock(this.elements.myForm);
-    // this.elements.myForm.reset();
   }
   //Method
   hideMyForm() {

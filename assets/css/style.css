@@ -153,7 +153,13 @@ h6 {
 .weightDiv {
   text-align: center;
 }
+#svgDiv {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 svg {
-  margin: 0 auto 10px;
+  /* margin: 0 auto 10px; */
+  margin: 15px;
   display: block;
 }

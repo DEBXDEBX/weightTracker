@@ -28,6 +28,7 @@ let height = 400;
 let barPadding = 10;
 let numBars = 12;
 let barWidth = width / numBars - barPadding;
+let svgDiv = document.querySelector("#svgDiv");
 //Global variable's
 // This is the Main array that holds all the year objects
 const arrayOfYearObjs = [];
@@ -46,11 +47,6 @@ let root = document.querySelector(":root");
 let checkBox = document.querySelector("#autoLoad");
 // temp hold for array
 let settingsArrayContainer;
-
-// //This enables JQuery ToolTips
-// $(document).ready(function() {
-//   $('[data-toggle="tooltip"]').tooltip();
-// });
 
 //The start of program exicution.
 window.onload = function() {
@@ -83,16 +79,14 @@ function startUp() {
 //*************************************************** */
 
 function drawD3() {
-  document.querySelector("#svg").innerHTML = "";
-  d3.select("svg")
+  svgDiv.style.display = "flex";
+
+  document.querySelector("#mainSvg").innerHTML = "";
+  d3.select("#mainSvg")
     .attr("width", width)
     .attr("height", height)
     .selectAll("rect")
-    .data(
-      arrayOfYearObjs[yearIndex].arrayOfMonthObjects.filter(function(d) {
-        return d.weight >= 0;
-      })
-    )
+    .data(arrayOfYearObjs[yearIndex].arrayOfMonthObjects)
     .enter()
     .append("rect")
     .attr("width", barWidth)
@@ -106,6 +100,78 @@ function drawD3() {
       return (barWidth + barPadding) * i;
     })
     .attr("fill", "purple");
+  // left svg
+  if (yearIndex === 0) {
+    // do fake stuff
+    document.querySelector("#leftSvg").innerHTML = "";
+    //fake array
+    let fakeArrayOfMonthObjects = [];
+    // create the 12 months
+    let January = new MonthObject("January", 10);
+    fakeArrayOfMonthObjects.push(January);
+    let February = new MonthObject("February", 15);
+    fakeArrayOfMonthObjects.push(February);
+    let March = new MonthObject("March", 20);
+    fakeArrayOfMonthObjects.push(March);
+    let April = new MonthObject("April", 25);
+    fakeArrayOfMonthObjects.push(April);
+    let May = new MonthObject("May", 30);
+    fakeArrayOfMonthObjects.push(May);
+    let June = new MonthObject("June", 35);
+    fakeArrayOfMonthObjects.push(June);
+    let July = new MonthObject("July", 40);
+    fakeArrayOfMonthObjects.push(July);
+    let August = new MonthObject("August", 45);
+    fakeArrayOfMonthObjects.push(August);
+    let September = new MonthObject("September", 50);
+    fakeArrayOfMonthObjects.push(September);
+    let October = new MonthObject("October", 55);
+    fakeArrayOfMonthObjects.push(October);
+    let November = new MonthObject("November", 60);
+    fakeArrayOfMonthObjects.push(November);
+    let December = new MonthObject("December", 65);
+    fakeArrayOfMonthObjects.push(December);
+    // next part
+    document.querySelector("#leftSvg").innerHTML = "";
+    d3.select("#leftSvg")
+      .attr("width", width)
+      .attr("height", height)
+      .selectAll("rect")
+      .data(fakeArrayOfMonthObjects)
+      .enter()
+      .append("rect")
+      .attr("width", barWidth)
+      .attr("height", function(d) {
+        return d.weight;
+      })
+      .attr("y", function(d) {
+        return height - d.weight;
+      })
+      .attr("x", function(d, i) {
+        return (barWidth + barPadding) * i;
+      })
+      .attr("fill", "purple");
+  } else {
+    document.querySelector("#leftSvg").innerHTML = "";
+    d3.select("#leftSvg")
+      .attr("width", width)
+      .attr("height", height)
+      .selectAll("rect")
+      .data(arrayOfYearObjs[yearIndex - 1].arrayOfMonthObjects)
+      .enter()
+      .append("rect")
+      .attr("width", barWidth)
+      .attr("height", function(d) {
+        return d.weight;
+      })
+      .attr("y", function(d) {
+        return height - d.weight;
+      })
+      .attr("x", function(d, i) {
+        return (barWidth + barPadding) * i;
+      })
+      .attr("fill", "purple");
+  }
 }
 
 // Sort an array by it's name
@@ -287,6 +353,7 @@ function applySettings(settings) {
 // listen for index.js to show settings form
 ipcRenderer.on("SettingsForm:show", event => {
   loadUpSettingsForm();
+  display.displayNone(svgDiv);
   display.showSettingsForm();
 });
 
@@ -480,6 +547,11 @@ el.yearList.addEventListener("click", e => {
 el.monthList.addEventListener("click", e => {
   // this is for clicking on the month list
   if (!e.target.classList.contains("month")) {
+    display.showAlert("You did not enter a number for the Year!", "error");
+    // redisplay
+    // get the names for all the years
+    // and then send them to the Display
+    display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
   // event delegation
@@ -519,6 +591,12 @@ el.monthList.addEventListener("click", e => {
 // form btn
 el.saveWeightBtn.addEventListener("click", e => {
   e.preventDefault();
+
+  if (isNaN(Number(el.weightText.value))) {
+    display.showAlert("You did not enter a number for the Weight!", "error");
+    el.myForm.reset();
+    return;
+  }
 
   let weight = el.weightText.value.trim();
   if (!weight) {
