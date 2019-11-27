@@ -4,17 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!--jQuery CDN -->
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
     <!-- My CSS File -->
 
     <style>
-      h1 {
-        color: green;
-        text-shadow: 2px 2px #ff0000;
-        text-align: center;
+      body {
+        background-color: black;
       }
-      h2 {
-        color: green;
-        text-shadow: 2px 2px #ff0000;
+      #myDiv {
+        margin-top: 100px;
+      }
+      h1 {
+        color: #0af30a;
         text-align: center;
       }
 
@@ -24,97 +39,111 @@
         width: 324px;
       }
 
-      #myDiv {
-        /*border: 3px solid red;*/
-      }
-
       #getAveBtn {
-        margin-left: 3px;
+        margin-top: 30px;
       }
       #clearFormBtn {
-        margin-left: 30px;
+        margin-top: 12px;
       }
       input[type="text"] {
         margin: 5px auto;
       }
     </style>
-    <title>Help</title>
+    <title>Average</title>
   </head>
   <body>
-    <!-- <h1>Weight Average</h1> -->
+    <audio id="btnAudio">
+      <source src="assets/sound/btn.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="warningNameTakenAudio">
+      <source src="assets/sound/warningNameTaken.wav" type="audio/wav" />
+    </audio>
+
+    <audio id="cancelAudio">
+      <source src="assets/sound/cancel.wav" type="audio/wav" />
+    </audio>
 
     <div class="container" id="myDiv">
-      <div class="jumbotron">
-        <h2><span id="display"></span></h2>
-        <div id="myForm">
-          <!--       <h1>177.8</h1> -->
-          <form>
-            <div>
-              <input
-                id="wOne"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wTwo"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wThree"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wFour"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wFive"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wSix"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
-            <div>
-              <input
-                id="wSeven"
-                class="form-control-lg"
-                type="text"
-                placeholder=""
-              />
-            </div>
+      <h1><span id="display"></span></h1>
+      <div id="myForm">
+        <!--       <h1>177.8</h1> -->
+        <form>
+          <div>
+            <input
+              id="wOne"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wTwo"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wThree"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wFour"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wFive"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wSix"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
+          <div>
+            <input
+              id="wSeven"
+              class="form-control-lg"
+              type="text"
+              placeholder=""
+            />
+          </div>
 
-            <button id="getAveBtn" type="submit" class="btn btn-success">
-              Get Average
-            </button>
+          <div class="form-group">
+            <input
+              id="getAveBtn"
+              class="btn btn-success form-control"
+              type="submit"
+              value="Get Average"
+            />
+          </div>
 
-            <button id="clearFormBtn" type="button" class="btn btn-danger">
-              Clear Form
-            </button>
-          </form>
-        </div>
+          <div class="form-group">
+            <input
+              id="clearFormBtn"
+              class="btn btn-danger form-control"
+              type="button"
+              value="Clear Form"
+            />
+          </div>
+        </form>
       </div>
     </div>
 
