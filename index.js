@@ -10,6 +10,7 @@ console.log(
 let mainWindow;
 let addWindow;
 let helpWindow;
+let averageWindow;
 // watch the app object and wait for a ready event
 app.on("ready", () => {
   // function to run when the app is ready
@@ -90,6 +91,21 @@ function loadHelp() {
   });
 }
 
+//When you click on average numbers in the menu
+function loadAverageNumbers() {
+  averageWindow = new BrowserWindow({
+    width: 800,
+    height: 800,
+    title: "Average Number's"
+  });
+  averageWindow.setMenu(null);
+  averageWindow.loadURL(`file://${__dirname}/average.html`);
+  averageWindow.maximize();
+  // the following is for garbage collection
+  averageWindow.on("closed", () => {
+    averageWindow = null;
+  });
+}
 //When You click on load year
 function loadYear() {
   console.log("Start loading year....");
@@ -252,6 +268,13 @@ const menuTemplate = [
         accelerator: process.platform === "darwin" ? "Command+D" : "Ctrl+h",
         click() {
           loadHelp();
+        }
+      },
+      {
+        label: "Average Number's",
+        accelerator: process.platform === "darwin" ? "Command+A" : "Ctrl+A",
+        click() {
+          loadAverageNumbers();
         }
       }
     ]

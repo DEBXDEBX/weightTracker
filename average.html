@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- My CSS File -->
+
+    <style>
+      h1 {
+        color: green;
+        text-shadow: 2px 2px #ff0000;
+        text-align: center;
+      }
+      h2 {
+        color: green;
+        text-shadow: 2px 2px #ff0000;
+        text-align: center;
+      }
+
+      #myForm {
+        /*border: 3px solid red;*/
+        margin: 0 auto;
+        width: 324px;
+      }
+
+      #myDiv {
+        /*border: 3px solid red;*/
+      }
+
+      #getAveBtn {
+        margin-left: 3px;
+      }
+      #clearFormBtn {
+        margin-left: 30px;
+      }
+      input[type="text"] {
+        margin: 5px auto;
+      }
+    </style>
+    <title>Help</title>
+  </head>
+  <body>
+    <!-- <h1>Weight Average</h1> -->
+
+    <div class="container" id="myDiv">
+      <div class="jumbotron">
+        <h2><span id="display"></span></h2>
+        <div id="myForm">
+          <!--       <h1>177.8</h1> -->
+          <form>
+            <div>
+              <input
+                id="wOne"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wTwo"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wThree"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wFour"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wFive"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wSix"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+            <div>
+              <input
+                id="wSeven"
+                class="form-control-lg"
+                type="text"
+                placeholder=""
+              />
+            </div>
+
+            <button id="getAveBtn" type="submit" class="btn btn-success">
+              Get Average
+            </button>
+
+            <button id="clearFormBtn" type="button" class="btn btn-danger">
+              Clear Form
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- My JavaScript File -->
+    <script
+      type="text/javascript"
+      src="assets/js/weightAverageScript.js"
+    ></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
