@@ -15,7 +15,7 @@ const { ipcRenderer } = electron;
 //Select audio files
 const addAudio = document.querySelector("#addAudio");
 const addImageAudio = document.querySelector("#addImageAudio");
-const deleteAudio = document.querySelector("#deleteAudio");
+const clickAudio = document.querySelector("#clickAudio");
 const warningEmptyAudio = document.querySelector("#warningEmptyAudio");
 const warningSelectAudio = document.querySelector("#warningSelectAudio");
 const warningNameTakenAudio = document.querySelector("#warningNameTakenAudio");
@@ -165,7 +165,17 @@ function drawD3() {
       .attr("x", function(d, i) {
         return (barWidth + barPadding) * i;
       })
-      .attr("fill", "purple");
+      .attr("fill", "purple")
+      .on("mousemove", function(d) {
+        tooltip
+          .style("opacity", 1)
+          .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
+          .style("top", d3.event.y + 25 + "px").html(`<h5>${d.name}</h5>
+                 <h5>${d.weight.toFixed(1)} LB</h5>`);
+      })
+      .on("mouseout", function() {
+        tooltip.style("opacity", 0);
+      });
   } else {
     document.querySelector("#leftSvg").innerHTML = "";
     d3.select("#leftSvg")
@@ -185,7 +195,17 @@ function drawD3() {
       .attr("x", function(d, i) {
         return (barWidth + barPadding) * i;
       })
-      .attr("fill", "purple");
+      .attr("fill", "purple")
+      .on("mousemove", function(d) {
+        tooltip
+          .style("opacity", 1)
+          .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
+          .style("top", d3.event.y + 25 + "px").html(`<h5>${d.name}</h5>
+                 <h5>${d.weight.toFixed(1)} LB</h5>`);
+      })
+      .on("mouseout", function() {
+        tooltip.style("opacity", 0);
+      });
   }
 }
 
@@ -592,7 +612,7 @@ el.monthList.addEventListener("click", e => {
     // if it's not a number return
     return;
   }
-  tabAudio.play();
+  clickAudio.play();
   this.myForm.reset();
   display.hideMyForm();
   display.showMyForm();
@@ -610,7 +630,7 @@ el.saveWeightBtn.addEventListener("click", e => {
 
   let weight = el.weightText.value.trim();
   if (!weight) {
-    warning1Audio.play();
+    warningEmptyAudio.play();
     display.showAlert("Please enter a weight!", "error");
     return;
   }
