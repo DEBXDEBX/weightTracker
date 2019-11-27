@@ -176,3 +176,12 @@ svg {
 .tooltip p {
   margin: 0;
 }
+.tooltip:before {
+  content: "";
+  position: absolute;
+  border: 12px solid transparent;
+  border-bottom-color: black;
+  top: -30px;
+  left: 50%;
+  margin-left: -6px;
+}
