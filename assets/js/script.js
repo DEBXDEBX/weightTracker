@@ -29,6 +29,10 @@ let barPadding = 10;
 let numBars = 12;
 let barWidth = width / numBars - barPadding;
 let svgDiv = document.querySelector("#svgDiv");
+let tooltip = d3
+  .select("body")
+  .append("div")
+  .classed("tooltip", true);
 //Global variable's
 // This is the Main array that holds all the year objects
 const arrayOfYearObjs = [];
@@ -99,7 +103,18 @@ function drawD3() {
     .attr("x", function(d, i) {
       return (barWidth + barPadding) * i;
     })
-    .attr("fill", "purple");
+    .attr("fill", "purple")
+    .on("mousemove", function(d) {
+      tooltip
+        .style("opacity", 1)
+        .style("left", d3.event.x + "px")
+        .style("top", d3.event.y + "px").html(`<p>${d.name}</p>
+               <p>${d.weight.toFixed(1)} LB`);
+    })
+    .on("mouseout", function() {
+      tooltip.style("opacity", 0);
+    });
+
   // left svg
   if (yearIndex === 0) {
     // do fake stuff
