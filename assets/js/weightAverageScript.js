@@ -78,6 +78,7 @@ clearBtn.addEventListener("click", function() {
 });
 
 avergeBtn.addEventListener("click", function(event) {
+  event.preventDefault();
   //create objects
   let wObject1 = new Weight(weight1.value);
   let wObject2 = new Weight(weight2.value);
@@ -120,6 +121,7 @@ avergeBtn.addEventListener("click", function(event) {
   });
   //Calculate Average
   totalWeight = totalWeight / myArray.length;
+
   //Update Display
   let messagePartOne = "Your Average is:  ";
 
@@ -132,13 +134,14 @@ avergeBtn.addEventListener("click", function(event) {
     !wObject6.isNumber ||
     !wObject7.isNumber
   ) {
-    displayMessage.innerHTML = "Please enter Numbers Only";
+    displayMessage.innerHTML = "Please enter numbers only!";
     warningNameTakenAudio.play();
   } else {
+    if (isNaN(totalWeight)) {
+      displayMessage.innerHTML = "Please enter numbers to average!";
+      return;
+    }
     displayMessage.innerHTML = messagePartOne + totalWeight;
     btnAudio.play();
   }
-
-  //This is because I used a submit btn, the submit btn lets you push enter
-  event.preventDefault();
 });
