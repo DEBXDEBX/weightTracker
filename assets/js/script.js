@@ -33,6 +33,7 @@ let tooltip = d3
   .select("body")
   .append("div")
   .classed("tooltip", true);
+let padding = 30;
 //Global variable's
 // This is the Main array that holds all the year objects
 const arrayOfYearObjs = [];
@@ -86,6 +87,7 @@ function drawD3() {
   svgDiv.style.display = "flex";
 
   document.querySelector("#mainSvg").innerHTML = "";
+
   d3.select("#mainSvg")
     .attr("width", width)
     .attr("height", height)
@@ -103,17 +105,31 @@ function drawD3() {
     .attr("x", function(d, i) {
       return (barWidth + barPadding) * i;
     })
-    .attr("fill", "purple")
+    .attr("fill", "#0af30a")
     .on("mousemove", function(d) {
       tooltip
         .style("opacity", 1)
         .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
-        .style("top", d3.event.y + 25 + "px").html(`<h5>${d.name}</h5>
+        .style(
+          "top",
+          d3.event.y + 25 + "px"
+        ).html(`<h5>${arrayOfYearObjs[yearIndex].name}</h5><h5>${d.name}</h5>
                <h5>${d.weight.toFixed(1)} LB</h5>`);
     })
     .on("mouseout", function() {
       tooltip.style("opacity", 0);
     });
+
+  // add title
+  d3.select("#mainSvg")
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", padding)
+    .attr("dy", "1.5em")
+    .style("text-anchor", "middle")
+    .style("font-size", "1.5rem")
+    .style("font-weight", "900")
+    .text(arrayOfYearObjs[yearIndex].name);
 
   // left svg
   if (yearIndex === 0) {
@@ -165,7 +181,7 @@ function drawD3() {
       .attr("x", function(d, i) {
         return (barWidth + barPadding) * i;
       })
-      .attr("fill", "purple")
+      .attr("fill", "#aba3f2")
       .on("mousemove", function(d) {
         tooltip
           .style("opacity", 1)
@@ -195,17 +211,31 @@ function drawD3() {
       .attr("x", function(d, i) {
         return (barWidth + barPadding) * i;
       })
-      .attr("fill", "purple")
+      .attr("fill", "#aba3f2")
       .on("mousemove", function(d) {
         tooltip
           .style("opacity", 1)
           .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
-          .style("top", d3.event.y + 25 + "px").html(`<h5>${d.name}</h5>
+          .style(
+            "top",
+            d3.event.y + 25 + "px"
+          ).html(`<h5>${arrayOfYearObjs[yearIndex - 1].name}</h5><h5>${d.name}</h5>
                  <h5>${d.weight.toFixed(1)} LB</h5>`);
       })
       .on("mouseout", function() {
         tooltip.style("opacity", 0);
       });
+
+    // add title
+    d3.select("#leftSvg")
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", padding)
+      .attr("dy", "1.5em")
+      .style("text-anchor", "middle")
+      .style("font-size", "1.5rem")
+      .style("font-weight", "900")
+      .text(arrayOfYearObjs[yearIndex - 1].name);
   }
 }
 
