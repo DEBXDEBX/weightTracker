@@ -100,7 +100,7 @@ function loadAverageNumbers() {
   });
   averageWindow.setMenu(null);
   averageWindow.loadURL(`file://${__dirname}/average.html`);
-  averageWindow.maximize();
+  // averageWindow.maximize();
   // the following is for garbage collection
   averageWindow.on("closed", () => {
     averageWindow = null;

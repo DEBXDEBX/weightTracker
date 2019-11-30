@@ -81,10 +81,7 @@ nav ul li:hover {
 .active {
   color: white;
 }
-/* #monthHeading,
-#transactionHeading {
-  display: none;
-} */
+
 #monthHeading,
 #myForm,
 #settingsForm {
@@ -153,6 +150,8 @@ h6 {
 .weightDiv {
   text-align: center;
 }
+
+/* svg below  */
 #svgDiv {
   display: flex;
   justify-content: center;
