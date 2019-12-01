@@ -162,7 +162,7 @@ function drawD3() {
     fakeArrayOfMonthObjects.push(November);
     let December = new MonthObject("December", 65);
     fakeArrayOfMonthObjects.push(December);
-    // next part
+    // next part draw fake graph with no real data
     document.querySelector("#leftSvg").innerHTML = "";
     d3.select("#leftSvg")
       .attr("width", width)
@@ -193,6 +193,7 @@ function drawD3() {
         tooltip.style("opacity", 0);
       });
   } else {
+    // Draw previous year on the left side
     document.querySelector("#leftSvg").innerHTML = "";
     d3.select("#leftSvg")
       .attr("width", width)
@@ -237,7 +238,7 @@ function drawD3() {
       .style("font-weight", "900")
       .text(arrayOfYearObjs[yearIndex - 1].name);
   }
-}
+} //End function drawD3()
 
 // Sort an array by it's name
 function sortArrayByName(array) {

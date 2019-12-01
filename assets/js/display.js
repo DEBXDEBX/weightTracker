@@ -18,7 +18,6 @@ class Display {
     const container = document.querySelector("body");
     // Insert alert other element
     container.insertBefore(div, this.elements.myForm);
-    // container.insertBefore(div, this.elements.transactionHeading);
     // Timeout after 4 sec
     setTimeout(function() {
       document.querySelector(".alert").remove();
@@ -91,9 +90,6 @@ class Display {
     });
     // paint file cab tabs
     this.elements.monthList.innerHTML = html;
-    // // color tabs
-    // let tabList = document.getElementsByClassName("myFlexItem");
-    // this.colorSetOfTabs(tabList);
   } // End paintFileCabTabs(mapedArray)
 
   //Method
