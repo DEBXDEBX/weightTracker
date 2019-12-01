@@ -46,6 +46,8 @@ class Display {
 
   // Method
   paintYearTabs(mapedArray) {
+    this.displayNone(this.elements.leftSvg);
+    this.displayNone(this.elements.mainSvg);
     this.displayNone(this.elements.monthHeading);
     this.displayNone(this.elements.monthList);
     this.displayNone(this.elements.addWeightHeading);

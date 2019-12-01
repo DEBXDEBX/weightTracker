@@ -11,6 +11,10 @@ class Elements {
     this.myForm = document.querySelector("#myForm");
     this.settingsForm = document.querySelector("#settingsForm");
 
+    // select svg
+    this.mainSvg = document.querySelector("#mainSvg");
+    this.leftSvg = document.querySelector("#leftSvg");
+
     // select form btns
     this.saveWeightBtn = document.querySelector("#weightAddBtn");
     this.cancelBtn = document.querySelector("#weightCancel");

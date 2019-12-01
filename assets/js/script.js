@@ -86,9 +86,10 @@ function startUp() {
 function drawD3() {
   svgDiv.style.display = "flex";
 
-  document.querySelector("#mainSvg").innerHTML = "";
+  // document.querySelector("#mainSvg").innerHTML = "";
+  el.mainSvg.innerHTML = "";
 
-  d3.select("#mainSvg")
+  d3.select(el.mainSvg)
     .attr("width", width)
     .attr("height", height)
     .selectAll("rect")
@@ -121,7 +122,7 @@ function drawD3() {
     });
 
   // add title
-  d3.select("#mainSvg")
+  d3.select(el.mainSvg)
     .append("text")
     .attr("x", width / 2)
     .attr("y", padding)
@@ -134,7 +135,8 @@ function drawD3() {
   // left svg
   if (yearIndex === 0) {
     // do fake stuff
-    document.querySelector("#leftSvg").innerHTML = "";
+    // document.querySelector("#leftSvg").innerHTML = "";
+    el.leftSvg.innerHTML = "";
     //fake array
     let fakeArrayOfMonthObjects = [];
     // create the 12 months
@@ -163,8 +165,8 @@ function drawD3() {
     let December = new MonthObject("December", 65);
     fakeArrayOfMonthObjects.push(December);
     // next part draw fake graph with no real data
-    document.querySelector("#leftSvg").innerHTML = "";
-    d3.select("#leftSvg")
+    el.leftSvg.innerHTML = "";
+    d3.select(el.leftSvg)
       .attr("width", width)
       .attr("height", height)
       .selectAll("rect")
@@ -194,8 +196,8 @@ function drawD3() {
       });
   } else {
     // Draw previous year on the left side
-    document.querySelector("#leftSvg").innerHTML = "";
-    d3.select("#leftSvg")
+    el.leftSvg.innerHTML = "";
+    d3.select(el.leftSvg)
       .attr("width", width)
       .attr("height", height)
       .selectAll("rect")
@@ -228,7 +230,7 @@ function drawD3() {
       });
 
     // add title
-    d3.select("#leftSvg")
+    d3.select(el.leftSvg)
       .append("text")
       .attr("x", width / 2)
       .attr("y", padding)
@@ -605,6 +607,8 @@ el.yearList.addEventListener("click", e => {
     return;
   }
   tabAudio.play();
+  display.displayBlock(this.leftSvg);
+  display.displayBlock(this.mainSvg);
   // get the array of months and send it to display
   display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
   drawD3();
