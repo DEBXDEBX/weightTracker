@@ -437,7 +437,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     // redisplay
     // get the names for all the years
     // and then send them to the Display
-    display.hideSettingsForm();
+
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -447,7 +447,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     // redisplay
     // get the names for all the years
     // and then send them to the Display
-    display.hideSettingsForm();
+
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -456,7 +456,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     // redisplay
     // get the names for all the years
     // and then send them to the Display
-    display.hideSettingsForm();
+
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -473,7 +473,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     // redisplay
     // get the names for all the years
     // and then send them to the Display
-    display.hideSettingsForm();
+
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -513,7 +513,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   // redisplay
   // get the names for all the years
   // and then send them to the Display
-  display.hideSettingsForm();
+
   display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
 });
 // End ipcRenderer.on("year:add"********************
@@ -557,7 +557,7 @@ ipcRenderer.on("yearObj:load", (event, data) => {
     // redisplay
     // get the names for all the years
     // and then send them to the Display
-    display.hideSettingsForm();
+
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -572,10 +572,10 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   sortArrayByName(arrayOfYearObjs);
   // write the year object to disk
   newYear.writeYearToHardDisk(fs);
-  // redisplay
+  // redisplayss
   // get the names for all the years
   // and then send them to the Display
-  display.hideSettingsForm();
+
   display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
   return;
 });
