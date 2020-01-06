@@ -126,6 +126,8 @@ h6 {
 #settingsForm {
   border: 20px solid white;
   border-radius: 20px;
+  max-width: 70%;
+  margin: 14px auto;
 }
 .setFlex {
   display: flex;
@@ -133,6 +135,15 @@ h6 {
   align-content: center;
   justify-content: center;
   background-color: #aea9ad;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 22px;
+}
+.setAutoListFlex {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: start;
   align-items: center;
   padding: 2rem;
   border-radius: 22px;
