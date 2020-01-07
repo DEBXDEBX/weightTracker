@@ -58,8 +58,10 @@ ipcMain.on("year:add", (event, name) => {
   console.log(name);
   // close the addWindow
   addWindow.close();
-  // this is for extsions
+  // Set fileName to name
+  // filter for .deb extensions
   let myOptions = {
+    defaultPath: name,
     filters: [{ name: "Custom File Type", extensions: ["deb"] }]
   };
   // open save dialog to create a fileNamePath
