@@ -29,10 +29,7 @@ let barPadding = 10;
 let numBars = 12;
 let barWidth = width / numBars - barPadding;
 let svgDiv = document.querySelector("#svgDiv");
-let tooltip = d3
-  .select("body")
-  .append("div")
-  .classed("tooltip", true);
+let tooltip = d3.select("body").append("div").classed("tooltip", true);
 let padding = 30;
 //Global variable's
 // This is the Main array that holds all the year objects
@@ -54,7 +51,7 @@ let checkBox = document.querySelector("#autoLoad");
 let settingsArrayContainer;
 
 //The start of program exicution.
-window.onload = function() {
+window.onload = function () {
   startUp();
 };
 
@@ -97,17 +94,17 @@ function drawD3() {
     .enter()
     .append("rect")
     .attr("width", barWidth)
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.weight;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return height - d.weight;
     })
-    .attr("x", function(d, i) {
+    .attr("x", function (d, i) {
       return (barWidth + barPadding) * i;
     })
     .attr("fill", "#0af30a")
-    .on("mousemove", function(d) {
+    .on("mousemove", function (d) {
       tooltip
         .style("opacity", 1)
         .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
@@ -117,7 +114,7 @@ function drawD3() {
         ).html(`<h5>${arrayOfYearObjs[yearIndex].name}</h5><h5>${d.name}</h5>
                <h5>${d.weight.toFixed(1)} LB</h5>`);
     })
-    .on("mouseout", function() {
+    .on("mouseout", function () {
       tooltip.style("opacity", 0);
     });
 
@@ -174,24 +171,24 @@ function drawD3() {
       .enter()
       .append("rect")
       .attr("width", barWidth)
-      .attr("height", function(d) {
+      .attr("height", function (d) {
         return d.weight;
       })
-      .attr("y", function(d) {
+      .attr("y", function (d) {
         return height - d.weight;
       })
-      .attr("x", function(d, i) {
+      .attr("x", function (d, i) {
         return (barWidth + barPadding) * i;
       })
       .attr("fill", "#aba3f2")
-      .on("mousemove", function(d) {
+      .on("mousemove", function (d) {
         tooltip
           .style("opacity", 1)
           .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
           .style("top", d3.event.y + 25 + "px").html(`<h5>${d.name}</h5>
                  <h5>${d.weight.toFixed(1)} LB</h5>`);
       })
-      .on("mouseout", function() {
+      .on("mouseout", function () {
         tooltip.style("opacity", 0);
       });
   } else {
@@ -205,17 +202,17 @@ function drawD3() {
       .enter()
       .append("rect")
       .attr("width", barWidth)
-      .attr("height", function(d) {
+      .attr("height", function (d) {
         return d.weight;
       })
-      .attr("y", function(d) {
+      .attr("y", function (d) {
         return height - d.weight;
       })
-      .attr("x", function(d, i) {
+      .attr("x", function (d, i) {
         return (barWidth + barPadding) * i;
       })
       .attr("fill", "#aba3f2")
-      .on("mousemove", function(d) {
+      .on("mousemove", function (d) {
         tooltip
           .style("opacity", 1)
           .style("left", d3.event.x - tooltip.node().offsetWidth / 2 + "px")
@@ -225,7 +222,7 @@ function drawD3() {
           ).html(`<h5>${arrayOfYearObjs[yearIndex - 1].name}</h5><h5>${d.name}</h5>
                  <h5>${d.weight.toFixed(1)} LB</h5>`);
       })
-      .on("mouseout", function() {
+      .on("mouseout", function () {
         tooltip.style("opacity", 0);
       });
 
@@ -244,7 +241,7 @@ function drawD3() {
 
 // Sort an array by it's name
 function sortArrayByName(array) {
-  array.sort(function(a, b) {
+  array.sort(function (a, b) {
     var nameA = a.name.toUpperCase(); // ignore upper and lowercase
     var nameB = b.name.toUpperCase(); // ignore upper and lowercase
     if (nameA < nameB) {
@@ -274,13 +271,13 @@ function getRadioValue(form, name) {
 }
 
 function mapOutKey(key, array) {
-  const newArray = array.map(function(item) {
+  const newArray = array.map(function (item) {
     return item[key];
   });
   return newArray;
 }
 function autoLoadYearObjects(array) {
-  array.forEach(function(item) {
+  array.forEach(function (item) {
     readFileContents(item);
   });
 }
@@ -310,7 +307,7 @@ function readFileContents(filepath) {
           // check if the fileNamePath already exists if it does alert and return
           // make a variable to return
           let isTaken = false;
-          arrayOfYearObjs.forEach(element => {
+          arrayOfYearObjs.forEach((element) => {
             if (element.fileNamePath === data.fileNamePath) {
               isTaken = true;
             }
@@ -419,7 +416,7 @@ function applySettings(settings) {
 //************************************************ */
 
 // listen for index.js to show settings form
-ipcRenderer.on("SettingsForm:show", event => {
+ipcRenderer.on("SettingsForm:show", (event) => {
   loadUpSettingsForm();
   display.displayNone(svgDiv);
   display.showSettingsForm();
@@ -463,7 +460,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   // check if the fileNamePath already exists if it does alert and return
   // make a variable to return
   let isTaken = false;
-  arrayOfYearObjs.forEach(element => {
+  arrayOfYearObjs.forEach((element) => {
     if (element.fileNamePath === dataObj.fileNamePath) {
       isTaken = true;
     }
@@ -546,7 +543,7 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   // check if the fileNamePath already exists if it does alert and return
   // make a variable to return
   let isTaken = false;
-  arrayOfYearObjs.forEach(element => {
+  arrayOfYearObjs.forEach((element) => {
     if (element.fileNamePath === data.fileNamePath) {
       isTaken = true;
     }
@@ -584,7 +581,18 @@ ipcRenderer.on("yearObj:load", (event, data) => {
 
 //*************************************************** */
 
-el.yearList.addEventListener("click", e => {
+el.yearList.addEventListener("click", (e) => {
+  // get the index from the html
+  let index = e.target.dataset.index;
+  index = parseInt(index);
+
+  // Bug fix
+  if (isNaN(index)) {
+    //when you click out side of te tab
+    // if it's not a number return
+    return;
+  }
+  yearIndex = index;
   // event delegation
   if (e.target.classList.contains("year")) {
     // set's the current target active
@@ -592,7 +600,7 @@ el.yearList.addEventListener("click", e => {
     //The Next code is to set the current tab color white with the active class
     var el = document.querySelectorAll(".year");
     for (let i = 0; i < el.length; i++) {
-      el[i].onclick = function() {
+      el[i].onclick = function () {
         var c = 0;
         while (c < el.length) {
           el[c++].className = "year";
@@ -602,17 +610,6 @@ el.yearList.addEventListener("click", e => {
     }
   } // End code to set the active class
 
-  // get the index from the html
-  let index = e.target.dataset.index;
-  index = parseInt(index);
-  yearIndex = index;
-
-  // Bug fix
-  if (isNaN(yearIndex)) {
-    //when you click out side of te tab
-    // if it's not a number return
-    return;
-  }
   tabAudio.play();
   display.displayBlock(this.leftSvg);
   display.displayBlock(this.mainSvg);
@@ -621,7 +618,7 @@ el.yearList.addEventListener("click", e => {
   drawD3();
 }); // End el.yearList.addEventListener()
 
-el.monthList.addEventListener("click", e => {
+el.monthList.addEventListener("click", (e) => {
   // this is for clicking on the month list
   if (!e.target.classList.contains("month")) {
     return;
@@ -633,7 +630,7 @@ el.monthList.addEventListener("click", e => {
     //The Next code is to set the current tab color white with the active class
     var el = document.querySelectorAll(".month");
     for (let i = 0; i < el.length; i++) {
-      el[i].onclick = function() {
+      el[i].onclick = function () {
         var c = 0;
         while (c < el.length) {
           el[c++].className = "month";
@@ -661,7 +658,7 @@ el.monthList.addEventListener("click", e => {
 });
 
 // form btn
-el.saveWeightBtn.addEventListener("click", e => {
+el.saveWeightBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   if (isNaN(Number(el.weightText.value))) {
@@ -690,7 +687,7 @@ el.saveWeightBtn.addEventListener("click", e => {
   drawD3();
 });
 // form btn
-el.cancelBtn.addEventListener("click", e => {
+el.cancelBtn.addEventListener("click", (e) => {
   cancelAudio.play();
   el.myForm.reset();
   display.hideMyForm();
@@ -700,7 +697,7 @@ el.cancelBtn.addEventListener("click", e => {
 // settings
 // *************************************************************
 // when You click on save settings Btn
-document.querySelector("#settingsSave").addEventListener("click", e => {
+document.querySelector("#settingsSave").addEventListener("click", (e) => {
   e.preventDefault();
 
   // get form data to create a settings object
@@ -746,7 +743,7 @@ document.querySelector("#settingsSave").addEventListener("click", e => {
 }); // End
 
 // when You click on settings form cancel Btn
-document.querySelector("#settingsCancel").addEventListener("click", e => {
+document.querySelector("#settingsCancel").addEventListener("click", (e) => {
   cancelAudio.play();
   // hide form
   display.displayNone(el.settingsForm);
@@ -758,7 +755,7 @@ document.querySelector("#settingsCancel").addEventListener("click", e => {
 });
 
 // when You click on settings form factory reset btn
-document.querySelector("#factoryReset").addEventListener("click", e => {
+document.querySelector("#factoryReset").addEventListener("click", (e) => {
   btnAudio.play();
   let settingsStorage = new SettingsStorage();
   settingsStorage.clearFileFromLocalStorage();
@@ -766,14 +763,14 @@ document.querySelector("#factoryReset").addEventListener("click", e => {
 });
 
 // When You click on settings form add path to autoload Btn
-document.querySelector("#settingsAddPath").addEventListener("click", e => {
+document.querySelector("#settingsAddPath").addEventListener("click", (e) => {
   e.preventDefault();
   let yearObjPath;
 
   let myOptions = {
-    filters: [{ name: "Custom File Type", extensions: ["deb"] }]
+    filters: [{ name: "Custom File Type", extensions: ["deb"] }],
   };
-  dialog.showOpenDialog(null, myOptions, fileNames => {
+  dialog.showOpenDialog(null, myOptions, (fileNames) => {
     if (fileNames === undefined || fileNames.length === 0) {
       display.showAlert("No file selected", "error");
     } else {
@@ -783,7 +780,7 @@ document.querySelector("#settingsAddPath").addEventListener("click", e => {
       // check if the fileNamePath already exists if it does alert and return
       // make a variable to return
       let isTaken = false;
-      settingsArrayContainer.forEach(element => {
+      settingsArrayContainer.forEach((element) => {
         if (element === yearObjPath) {
           isTaken = true;
         }
@@ -804,7 +801,7 @@ document.querySelector("#settingsAddPath").addEventListener("click", e => {
 });
 
 // when You click on x to delete a file path
-document.querySelector("#autoLoadList").addEventListener("click", e => {
+document.querySelector("#autoLoadList").addEventListener("click", (e) => {
   e.preventDefault();
   // event delegation
   if (e.target.classList.contains("deleteFile")) {
