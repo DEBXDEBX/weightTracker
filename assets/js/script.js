@@ -582,17 +582,6 @@ ipcRenderer.on("yearObj:load", (event, data) => {
 //*************************************************** */
 
 el.yearList.addEventListener("click", (e) => {
-  // get the index from the html
-  let index = e.target.dataset.index;
-  index = parseInt(index);
-
-  // Bug fix
-  if (isNaN(index)) {
-    //when you click out side of te tab
-    // if it's not a number return
-    return;
-  }
-  yearIndex = index;
   // event delegation
   if (e.target.classList.contains("year")) {
     // set's the current target active
@@ -608,14 +597,25 @@ el.yearList.addEventListener("click", (e) => {
         el[i].className = "year active";
       };
     }
-  } // End code to set the active class
+    // get the index from the html
+    let index = e.target.dataset.index;
+    index = parseInt(index);
 
-  tabAudio.play();
-  display.displayBlock(this.leftSvg);
-  display.displayBlock(this.mainSvg);
-  // get the array of months and send it to display
-  display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
-  drawD3();
+    // Bug fix
+    if (isNaN(index)) {
+      //when you click out side of te tab
+      // if it's not a number return
+      return;
+    }
+    yearIndex = index;
+    tabAudio.play();
+    display.displayBlock(this.leftSvg);
+    display.displayBlock(this.mainSvg);
+    // get the array of months and send it to display
+    display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
+    drawD3();
+    return;
+  } // End code to set the active class
 }); // End el.yearList.addEventListener()
 
 el.monthList.addEventListener("click", (e) => {
@@ -638,23 +638,23 @@ el.monthList.addEventListener("click", (e) => {
         el[i].className = "month active";
       };
     }
-  } // End code to set the active class
+    // get the index from the html
+    let index = e.target.dataset.index;
+    index = parseInt(index);
+    monthIndex = index;
 
-  // get the index from the html
-  let index = e.target.dataset.index;
-  index = parseInt(index);
-  monthIndex = index;
-
-  // Bug fix
-  if (isNaN(monthIndex)) {
-    //when you click out side of te tab
-    // if it's not a number return
+    // Bug fix
+    if (isNaN(monthIndex)) {
+      //when you click out side of te tab
+      // if it's not a number return
+      return;
+    }
+    clickAudio.play();
+    this.myForm.reset();
+    display.hideMyForm();
+    display.showMyForm();
     return;
-  }
-  clickAudio.play();
-  this.myForm.reset();
-  display.hideMyForm();
-  display.showMyForm();
+  } // End code to set the active class
 });
 
 // form btn
@@ -691,6 +691,14 @@ el.cancelBtn.addEventListener("click", (e) => {
   cancelAudio.play();
   el.myForm.reset();
   display.hideMyForm();
+  // get rid of active class
+  let activeTabList = document.getElementsByClassName("month active");
+  if (activeTabList) {
+    let newArray = Array.from(activeTabList);
+    for (let item of newArray) {
+      item.classList.remove("active");
+    }
+  }
 });
 
 // ***********************************************************
