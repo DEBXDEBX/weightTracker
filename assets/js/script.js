@@ -1,10 +1,4 @@
 "use strict";
-// webPreferences: true sets up the require in the script js file electron version 5.0.0 and above
-// mainWindow = new BrowserWindow({
-//   webPreferences: {
-//     nodeIntegration: true
-//   }
-// });   index.js
 // Used to access file system
 let app = require("electron").remote;
 let { dialog } = app;
@@ -31,7 +25,7 @@ let barWidth = width / numBars - barPadding;
 let svgDiv = document.querySelector("#svgDiv");
 let tooltip = d3.select("body").append("div").classed("tooltip", true);
 let padding = 30;
-//Global variable's
+// Global variable's
 // This is the Main array that holds all the year objects
 const arrayOfYearObjs = [];
 // create elements object
@@ -55,7 +49,7 @@ window.onload = function () {
   startUp();
 };
 
-//startUp
+// startUp
 function startUp() {
   //get data from settings obect
   let settingsStorage = new SettingsStorage();
@@ -429,9 +423,9 @@ function applySettings(settings) {
       console.log("No valid font-size");
   }
 } // End
-//************************************************ */
-// IPC
-//************************************************ */
+// *************************************************************
+//  IPC Code
+// *************************************************************
 
 // listen for index.js to show settings form
 ipcRenderer.on("SettingsForm:show", (event) => {
@@ -596,9 +590,12 @@ ipcRenderer.on("yearObj:load", (event, data) => {
 });
 //End ipcRenderer.on("year:load"*****************************
 // ***********************************************************
-
-//*************************************************** */
-
+// *************************************************************
+//   End IPC Code
+// *************************************************************
+// *************************************************************
+//  Year Code
+// *************************************************************
 el.yearList.addEventListener("click", (e) => {
   // event delegation
   if (e.target.classList.contains("year")) {
@@ -635,7 +632,12 @@ el.yearList.addEventListener("click", (e) => {
     return;
   } // End code to set the active class
 }); // End el.yearList.addEventListener()
-
+// *************************************************************
+//  End Year Code
+// *************************************************************
+// *************************************************************
+//  Month Code
+// *************************************************************
 el.monthList.addEventListener("click", (e) => {
   // this is for clicking on the month list
   if (!e.target.classList.contains("month")) {
@@ -675,8 +677,13 @@ el.monthList.addEventListener("click", (e) => {
     return;
   } // End code to set the active class
 });
-
-// form btn
+// *************************************************************
+//  End Month Code
+// *************************************************************
+// *************************************************************
+//  Weight Form Code
+// *************************************************************
+// Save Weight Btn
 el.saveWeightBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -705,7 +712,7 @@ el.saveWeightBtn.addEventListener("click", (e) => {
   display.paintMonthTabs(arrayOfYearObjs[yearIndex].arrayOfMonthObjects);
   drawD3();
 });
-// form btn
+// Cancel Btn Weight Form
 el.cancelBtn.addEventListener("click", (e) => {
   cancelAudio.play();
   el.myForm.reset();
@@ -719,9 +726,11 @@ el.cancelBtn.addEventListener("click", (e) => {
     }
   }
 });
-
-// ***********************************************************
-// settings
+// *************************************************************
+//  End Weight Form Code
+// *************************************************************
+// *************************************************************
+// Settings Code
 // *************************************************************
 // when You click on save settings Btn
 document.querySelector("#settingsSave").addEventListener("click", (e) => {
@@ -836,3 +845,6 @@ document.querySelector("#autoLoadList").addEventListener("click", (e) => {
     display.showAutoLoadList(settingsArrayContainer);
   }
 });
+// *************************************************************
+// End Settings Code
+// *************************************************************
