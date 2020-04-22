@@ -2,7 +2,6 @@
 * {
   /* padding will not add to the ACTUALLY WIDTH OF THE BOX */
   box-sizing: border-box;
-
   margin: 0;
   padding: 0;
 }
@@ -18,15 +17,12 @@ a {
 /* Create Variables */
 :root {
   --primary-color: #0f0;
-  --secondary-color: #00f;
 }
-/* use Variables */
 h1 {
   color: var(--primary-color);
   text-shadow: 1px 1px black;
   text-align: center;
 }
-
 h6 {
   margin: 10px;
   text-align: center;
@@ -47,7 +43,7 @@ nav ul {
 nav ul li {
   list-style: none;
   background-color: #d0215cbd;
-  color: rgb(0, 0, 0);
+  color: black;
   padding: 3px 10px;
   margin: 4px 10px;
   border-radius: 10px 10px 0px 0px;
@@ -56,7 +52,7 @@ nav ul li {
 }
 
 nav ul li:hover {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 .success,
 .error {
@@ -87,7 +83,6 @@ nav ul li:hover {
 #settingsForm {
   display: none;
 }
-/* The headings are h3  */
 h6 {
   color: var(--primary-color);
   text-shadow: 2px 2px black;
@@ -97,16 +92,13 @@ h6 {
 #addWeight {
   margin: 0px 46px;
 }
-
 #myForm {
   max-width: 88%;
   margin: 0 auto;
 }
-
 #taxInput {
   margin: 10px 10px;
 }
-
 /* settings form  */
 #settingsForm {
   background-color: white;
@@ -155,7 +147,6 @@ h6 {
 .weightDiv {
   text-align: center;
 }
-
 /* svg below  */
 #svgDiv {
   display: flex;
@@ -174,7 +165,6 @@ svg {
   border-radius: 8px;
   padding: 15px;
 }
-
 h5 {
   text-align: center;
 }
