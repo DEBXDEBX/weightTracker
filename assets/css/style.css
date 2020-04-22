@@ -99,6 +99,21 @@ h6 {
 #taxInput {
   margin: 10px 10px;
 }
+input[type="radio"]:hover {
+  cursor: pointer;
+}
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+.year:hover {
+  cursor: pointer;
+}
+.month:hover {
+  cursor: pointer;
+}
+.fas:hover {
+  cursor: pointer;
+}
 /* settings form  */
 #settingsForm {
   background-color: white;
