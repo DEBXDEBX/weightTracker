@@ -706,6 +706,7 @@ el.saveWeightBtn.addEventListener("click", (e) => {
   addAudio.play();
   // save
   arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs);
+  display.showAlert("You added a weight!", "success", 3000);
   el.myForm.reset();
   display.hideMyForm();
   // get the array of months and send it to display
