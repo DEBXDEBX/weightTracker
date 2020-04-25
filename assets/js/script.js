@@ -673,7 +673,12 @@ el.monthList.addEventListener("click", (e) => {
     this.myForm.reset();
     display.hideMyForm();
     display.showMyForm();
-    document.querySelector("#weightInput").focus();
+
+    // set time out to focus
+    window.setTimeout(function () {
+      document.querySelector("#weightInput").focus();
+    }, 1000);
+    return;
     return;
   } // End code to set the active class
 });
