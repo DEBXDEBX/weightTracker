@@ -63,7 +63,7 @@ let weight7 = document.querySelector("#wSeven");
 let onLoadMessage = "Enter Numbers To Average";
 displayMessage.innerHTML = onLoadMessage;
 
-clearBtn.addEventListener("click", function() {
+clearBtn.addEventListener("click", function () {
   //This clears the text fields
   weight1.value = "";
   weight2.value = "";
@@ -77,7 +77,7 @@ clearBtn.addEventListener("click", function() {
   cancelAudio.play();
 });
 
-avergeBtn.addEventListener("click", function(event) {
+avergeBtn.addEventListener("click", function (event) {
   event.preventDefault();
   //create objects
   let wObject1 = new Weight(weight1.value);
@@ -114,7 +114,7 @@ avergeBtn.addEventListener("click", function(event) {
   }
 
   //loop through to get the total weight
-  myArray.forEach(function(weight) {
+  myArray.forEach(function (weight) {
     totalWeight += weight.numberValue;
     //for debugging
     // console.table(weight);
@@ -138,6 +138,7 @@ avergeBtn.addEventListener("click", function(event) {
     warningNameTakenAudio.play();
   } else {
     if (isNaN(totalWeight)) {
+      warningNameTakenAudio.play();
       displayMessage.innerHTML = "Please enter numbers to average!";
       return;
     }
