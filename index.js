@@ -110,7 +110,6 @@ function loadAverageNumbers() {
 }
 //When You click on load year
 function loadYear() {
-  console.log("Start loading year....");
   // this is for extsions
   let myOptions = {
     filters: [{ name: "Custom File Type", extensions: ["deb"] }],

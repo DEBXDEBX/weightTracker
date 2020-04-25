@@ -85,7 +85,7 @@ function pushFileSettingsContainer(filePath) {
   if (isTaken) {
     // warningNameTakenAudio.play();
     warningNameTakenAudio.play();
-    display.showAlert("That file is already loaded", "error");
+    display.showAlert("That file is already loaded!", "error");
     return;
   }
 
@@ -95,7 +95,6 @@ function pushFileSettingsContainer(filePath) {
 function drawD3() {
   svgDiv.style.display = "flex";
 
-  // document.querySelector("#mainSvg").innerHTML = "";
   el.mainSvg.innerHTML = "";
 
   d3.select(el.mainSvg)
@@ -297,7 +296,7 @@ function autoLoadYearObjects(array) {
 function readFileContents(filepath) {
   fs.readFile(filepath, "utf-8", (err, data) => {
     if (err) {
-      let message = "An error occured reading the file.";
+      let message = "An error occured reading the file!";
       let msgType = "error";
       display.showAlert(message, msgType);
       return;
@@ -305,7 +304,7 @@ function readFileContents(filepath) {
       try {
         data = JSON.parse(data);
       } catch {
-        let message = "Can not parse data";
+        let message = "Can not parse data!";
         let msgType = "error";
         display.showAlert(message, msgType);
         return;
@@ -325,7 +324,7 @@ function readFileContents(filepath) {
             }
           });
           if (isTaken) {
-            display.showAlert("That file is already loaded", "error");
+            display.showAlert("That file is already loaded!", "error");
             // redisplay
             // get the names for all the years
             // and then send them to the Display
@@ -350,7 +349,7 @@ function readFileContents(filepath) {
           return;
         } else {
           let message =
-            "This is not a valid ElectronWeightTracker2019September file";
+            "This is not a valid ElectronWeightTracker2019September file!";
           let msgType = "error";
           display.showAlert(message, msgType);
         }
@@ -461,7 +460,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     return;
   }
   if (dataObj.fileNamePath === undefined) {
-    display.showAlert("You clicked cancel", "error");
+    display.showAlert("You clicked cancel!", "error");
     // redisplay
     // get the names for all the years
     // and then send them to the Display
@@ -478,7 +477,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
     }
   });
   if (isTaken) {
-    display.showAlert("That file is already loaded", "error");
+    display.showAlert("That file is already loaded!", "error");
     // redisplay
     // get the names for all the years
     // and then send them to the Display
@@ -562,7 +561,7 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   });
   if (isTaken) {
     // warningNameTakenAudio.play();
-    display.showAlert("That file is already loaded", "error");
+    display.showAlert("That file is already loaded!", "error");
     // redisplay
     // get the names for all the years
     // and then send them to the Display
