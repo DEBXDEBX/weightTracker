@@ -171,7 +171,21 @@ input[type="checkbox"]:hover {
 #svgDiv {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
+/* responsive  svg */
+@media screen and (max-width: 1300px) {
+  #svgDiv {
+    flex-direction: column;
+  }
+  #leftSvg {
+    order: 2;
+  }
+  mainSvg {
+    order: 1;
+  }
+}
+
 svg {
   margin: 15px;
   display: block;
