@@ -175,14 +175,8 @@ input[type="checkbox"]:hover {
 }
 /* responsive  svg */
 @media screen and (max-width: 1300px) {
-  #svgDiv {
-    flex-direction: column;
-  }
-  #leftSvg {
-    order: 2;
-  }
-  mainSvg {
-    order: 1;
+  #leftSvgContainer {
+    display: none;
   }
 }
 
