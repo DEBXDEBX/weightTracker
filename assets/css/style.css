@@ -18,6 +18,10 @@ a {
 :root {
   --primary-color: #0f0;
 }
+#yearHeading,
+#monthHeading {
+  box-shadow: 5px 4px 9px black;
+}
 h1 {
   color: var(--primary-color);
   text-shadow: 1px 1px black;
@@ -81,6 +85,7 @@ nav ul li:hover {
 /* END CODE FOR MESSAGES  */
 .active {
   color: white;
+  box-shadow: 5px 4px 9px black;
 }
 
 #monthHeading,
