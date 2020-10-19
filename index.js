@@ -293,11 +293,11 @@ if (process.platform === "darwin") {
 
 // DEVELOPER TOOLS
 // if (process.env.NODE_ENV !== "production") {
-// add object to end of array menu
+//   // add object to end of array menu
 //   menuTemplate.push({
 //     label: "View",
 //     submenu: [
-//predefined role
+//       // predefined role
 //       { role: "reload" },
 //       {
 //         label: "Toggle Developer Tools",

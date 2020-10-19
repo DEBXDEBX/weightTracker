@@ -644,10 +644,10 @@ el.monthList.addEventListener("click", (e) => {
     // create an array from an array like object
     let newArray = Array.from(monthList);
     newArray.forEach((item) => {
-      item.classList.remove("active");
+      item.parentElement.classList.remove("active");
     });
     // add active class
-    e.target.classList.add("active");
+    e.target.parentElement.classList.add("active");
 
     // get the index from the html
     let index = e.target.dataset.index;
