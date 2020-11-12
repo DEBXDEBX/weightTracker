@@ -108,9 +108,6 @@ nav ul li:hover {
   max-width: 88%;
   margin: 0 auto;
 }
-#taxInput {
-  margin: 10px 10px;
-}
 input[type="radio"]:hover {
   cursor: pointer;
 }
@@ -121,7 +118,18 @@ input[type="checkbox"]:hover {
   cursor: pointer;
 }
 .month:hover {
+  color: white;
   cursor: pointer;
+}
+.deleteFile {
+  color: red;
+  margin: 12px;
+  transition: color 0.7s ease;
+  transition: transform 0.7s cubic-bezier(0.45, 1.87, 0.62, 1.6);
+}
+.deleteFile:hover {
+  transform: scale(1.3);
+  color: #830713;
 }
 .fas:hover {
   cursor: pointer;

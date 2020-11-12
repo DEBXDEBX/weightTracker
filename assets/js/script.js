@@ -22,7 +22,7 @@ let height = 400;
 let barPadding = 10;
 let numBars = 12;
 let barWidth = width / numBars - barPadding;
-let svgDiv = document.querySelector("#svgDiv");
+
 let tooltip = d3.select("body").append("div").classed("tooltip", true);
 let padding = 30;
 // Global variable's
@@ -37,10 +37,7 @@ const display = new Display(el, $);
 let yearIndex = -243;
 // create month index
 let monthIndex = -243;
-// this is for the fontSize
-let root = document.querySelector(":root");
-// auto load check box
-let checkBox = document.querySelector("#autoLoad");
+
 // temp hold for array
 let settingsArrayContainer;
 
@@ -63,7 +60,7 @@ function startUp() {
     // update Form
     display.showAutoLoadList(settingsArrayContainer);
 
-    if (document.querySelector("#autoLoad").checked) {
+    if (el.autoLoadCheckBox.checked) {
       if (settings.filePathArray) {
         autoLoadYearObjects(settings.filePathArray);
       }
@@ -101,7 +98,7 @@ function pushFileSettingsContainer(filePath) {
   settingsArrayContainer.push(filePath);
 }
 function drawD3() {
-  svgDiv.style.display = "flex";
+  el.svgDiv.style.display = "flex";
 
   el.mainSvg.innerHTML = "";
 
@@ -151,7 +148,6 @@ function drawD3() {
   // left svg
   if (yearIndex === 0) {
     // do fake stuff
-    // document.querySelector("#leftSvg").innerHTML = "";
     el.leftSvg.innerHTML = "";
     //fake array
     let fakeArrayOfMonthObjects = [];
@@ -372,31 +368,25 @@ function loadUpSettingsForm() {
   settingsArrayContainer = settings.filePathArray;
 
   if (settings.type === "weightTracker") {
-    // set check box
-    if (settings.autoLoad) {
-      // check the box
-      checkBox.checked = true;
-    } else {
-      // uncheck the box
-      checkBox.checked = false;
-    }
+    // set check bo
+    el.autoLoadCheckBox.checked = settings.autoLoad;
 
     // check the right font size
     switch (settings.fontSize) {
       case "x-small":
-        document.querySelector("#x-small").checked = true;
+        el.xSmallRadio.checked = true;
         break;
       case "small":
-        document.querySelector("#small").checked = true;
+        el.smallRadio.checked = true;
         break;
       case "normal":
-        document.querySelector("#normal").checked = true;
+        el.normalRadio.checked = true;
         break;
       case "large":
-        document.querySelector("#large").checked = true;
+        el.largeRadio.checked = true;
         break;
       case "x-large":
-        document.querySelector("#x-large").checked = true;
+        el.xLargeRadio.checked = true;
         break;
       default:
         console.log("No valid font size");
@@ -407,25 +397,22 @@ function loadUpSettingsForm() {
 } // End loadUpSettingsForm()
 
 function applySettings(settings) {
-  if (settings.autoLoad === true) {
-    document.querySelector("#autoLoad").checked = true;
-  }
-
+  el.autoLoadCheckBox.checked = settings.autoLoad;
   switch (settings.fontSize) {
     case "x-small":
-      root.style.fontSize = "10px";
+      el.root.style.fontSize = "10px";
       break;
     case "small":
-      root.style.fontSize = "12px";
+      el.root.style.fontSize = "12px";
       break;
     case "normal":
-      root.style.fontSize = "16px";
+      el.root.style.fontSize = "16px";
       break;
     case "large":
-      root.style.fontSize = "20px";
+      el.root.style.fontSize = "20px";
       break;
     case "x-large":
-      root.style.fontSize = "24px";
+      el.root.style.fontSize = "24px";
       break;
     default:
       console.log("No valid font-size");
@@ -438,7 +425,7 @@ function applySettings(settings) {
 // listen for index.js to show settings form
 ipcRenderer.on("SettingsForm:show", (event) => {
   loadUpSettingsForm();
-  display.displayNone(svgDiv);
+  display.displayNone(el.svgDiv);
   display.showSettingsForm();
 });
 
@@ -451,34 +438,22 @@ ipcRenderer.on("Display:showAlert", (event, dataObj) => {
 ipcRenderer.on("year:add", (event, dataObj) => {
   if (!dataObj.name) {
     display.showAlert("You did not enter a name for the Year!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
 
   if (isNaN(Number(dataObj.name))) {
     display.showAlert("You did not enter a number for the Year!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
   if (dataObj.fileNamePath === undefined) {
     display.showAlert("You clicked cancel!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
   // check if the fileNamePath already exists if it does alert and return
-  // make a variable to return
+  // make a variable to check
   let isTaken = false;
 
   for (const element of arrayOfYearObjs) {
@@ -488,10 +463,6 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   }
   if (isTaken) {
     display.showAlert("That file is already loaded!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -527,11 +498,6 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   sortArrayByName(arrayOfYearObjs);
   // write the year object to disk
   newYear.writeYearToHardDisk(fs, display);
-
-  // redisplay
-  // get the names for all the years
-  // and then send them to the Display
-
   display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
 });
 // End ipcRenderer.on("year:add"********************
@@ -540,19 +506,19 @@ ipcRenderer.on("year:add", (event, dataObj) => {
 ipcRenderer.on("FontSize:change", (event, fontSize) => {
   switch (fontSize) {
     case "x-small":
-      root.style.fontSize = "10px";
+      el.root.style.fontSize = "10px";
       break;
     case "small":
-      root.style.fontSize = "12px";
+      el.root.style.fontSize = "12px";
       break;
     case "normal":
-      root.style.fontSize = "16px";
+      el.root.style.fontSize = "16px";
       break;
     case "large":
-      root.style.fontSize = "20px";
+      el.root.style.fontSize = "20px";
       break;
     case "x-large":
-      root.style.fontSize = "24px";
+      el.root.style.fontSize = "24px";
       break;
     default:
       console.log("No valid font-size");
@@ -562,7 +528,7 @@ ipcRenderer.on("FontSize:change", (event, fontSize) => {
 // listen for inedex.js to send data
 ipcRenderer.on("yearObj:load", (event, data) => {
   // check if the fileNamePath already exists if it does alert and return
-  // make a variable to return
+  // make a variable to check
   let isTaken = false;
 
   for (const element of arrayOfYearObjs) {
@@ -573,10 +539,6 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   if (isTaken) {
     // warningNameTakenAudio.play();
     display.showAlert("That file is already loaded!", "error");
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
-
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
@@ -591,10 +553,6 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   sortArrayByName(arrayOfYearObjs);
   // write the year object to disk
   newYear.writeYearToHardDisk(fs, display);
-  // redisplayss
-  // get the names for all the years
-  // and then send them to the Display
-
   display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
   return;
 });
@@ -655,7 +613,6 @@ el.monthList.addEventListener("click", (e) => {
     index = parseInt(index);
     monthIndex = index;
 
-    // Bug fix
     if (isNaN(monthIndex)) {
       return;
     }
@@ -666,7 +623,7 @@ el.monthList.addEventListener("click", (e) => {
 
     // set time out to focus
     window.setTimeout(function () {
-      document.querySelector("#weightInput").focus();
+      el.weightInput.focus();
     }, 1000);
     return;
     return;
@@ -679,16 +636,16 @@ el.monthList.addEventListener("click", (e) => {
 //  Weight Form Code
 // *************************************************************
 // Save Weight Btn
-el.saveWeightBtn.addEventListener("click", (e) => {
+el.addWeightSubmitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  if (isNaN(Number(el.weightText.value))) {
+  if (isNaN(Number(el.weightInput.value))) {
     display.showAlert("You did not enter a number for the Weight!", "error");
     el.myForm.reset();
     return;
   }
 
-  let weight = el.weightText.value.trim();
+  let weight = el.weightInput.value.trim();
   if (!weight) {
     warningEmptyAudio.play();
     display.showAlert("Please enter a weight!", "error");
@@ -724,7 +681,7 @@ el.cancelBtn.addEventListener("click", (e) => {
 // Settings Code
 // *************************************************************
 // when You click on save settings Btn
-document.querySelector("#settingsSave").addEventListener("click", (e) => {
+el.saveSettingsSubmitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   // get form data to create a settings object
@@ -738,7 +695,7 @@ document.querySelector("#settingsSave").addEventListener("click", (e) => {
   settingsObj.fontSize = fontSizeValue;
   settingsObj.filePathArray = settingsArrayContainer;
   // set auto load true or false
-  settingsObj.autoLoad = document.querySelector("#autoLoad").checked;
+  settingsObj.autoLoad = el.autoLoadCheckBox.checked;
   // save the object
   settingsStorage.saveSettings(settingsObj);
   addAudio.play();
@@ -756,28 +713,22 @@ document.querySelector("#settingsSave").addEventListener("click", (e) => {
     applySettings(settingsObj);
     // hide form
     display.displayNone(el.settingsForm);
-    // redisplay
-    // get the names for all the years
-    // and then send them to the Display
     display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
     return;
   }
 }); // End
 
 // when You click on settings form cancel Btn
-document.querySelector("#settingsCancel").addEventListener("click", (e) => {
+el.settingsCancelBtn.addEventListener("click", (e) => {
   cancelAudio.play();
   // hide form
   display.displayNone(el.settingsForm);
-  // redisplay
-  // get the names for all the years
-  // and then send them to the Display
   display.paintYearTabs(mapOutKey("name", arrayOfYearObjs));
   return;
 });
 
 // when You click on settings form factory reset btn
-document.querySelector("#factoryReset").addEventListener("click", (e) => {
+el.factoryResetBtn.addEventListener("click", (e) => {
   btnAudio.play();
   let settingsStorage = new SettingsStorage();
   settingsStorage.clearFileFromLocalStorage();
@@ -785,7 +736,7 @@ document.querySelector("#factoryReset").addEventListener("click", (e) => {
 });
 
 // When You click on settings form add path to autoload Btn
-document.querySelector("#settingsAddPath").addEventListener("click", (e) => {
+el.settingsAddPathBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   // this is for extsions
@@ -817,7 +768,7 @@ document.querySelector("#settingsAddPath").addEventListener("click", (e) => {
 });
 
 // when You click on x to delete a file path
-document.querySelector("#autoLoadList").addEventListener("click", (e) => {
+el.autoLoadList.addEventListener("click", (e) => {
   e.preventDefault();
   // event delegation
   if (e.target.classList.contains("deleteFile")) {
