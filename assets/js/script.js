@@ -62,8 +62,8 @@ function startUp() {
     applySettings(settings);
     // update Form
     display.showAutoLoadList(settingsArrayContainer);
-    var x = document.querySelector("#autoLoad").checked;
-    if (x === true) {
+
+    if (document.querySelector("#autoLoad").checked) {
       if (settings.filePathArray) {
         autoLoadYearObjects(settings.filePathArray);
       }
@@ -73,15 +73,23 @@ function startUp() {
 //*************************************************** */
 // Helper functions
 //*************************************************** */
+//*************************************************** */
+function removeActiveClass(element) {
+  if (element) {
+    element.classList.remove("active");
+  }
+}
+
 function pushFileSettingsContainer(filePath) {
   // check if the fileNamePath already exists if it does alert and return
   // make a variable to return
   let isTaken = false;
-  settingsArrayContainer.forEach((element) => {
+
+  for (const element of settingsArrayContainer) {
     if (element === filePath) {
       isTaken = true;
     }
-  });
+  }
   if (isTaken) {
     // warningNameTakenAudio.play();
     warningNameTakenAudio.play();
@@ -253,8 +261,8 @@ function drawD3() {
 // Sort an array by it's name
 function sortArrayByName(array) {
   array.sort(function (a, b) {
-    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+    const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+    const nameB = b.name.toUpperCase(); // ignore upper and lowercase
     if (nameA < nameB) {
       return -1;
     }
@@ -267,11 +275,11 @@ function sortArrayByName(array) {
 }
 // get the value of the selected radio button
 function getRadioValue(form, name) {
-  var val;
+  let val;
   // get list of radio buttons with specified name
-  var radios = form.elements[name];
+  const radios = form.elements[name];
   // loop through list of radio buttons
-  for (var i = 0, len = radios.length; i < len; i++) {
+  for (let i = 0, len = radios.length; i < len; i++) {
     if (radios[i].checked) {
       // radio checked?
       val = radios[i].value; // if so, hold its value in val
@@ -288,9 +296,9 @@ function mapOutKey(key, array) {
   return newArray;
 }
 function autoLoadYearObjects(array) {
-  array.forEach(function (item) {
+  for (const item of array) {
     readFileContents(item);
-  });
+  }
 }
 
 function readFileContents(filepath) {
@@ -318,11 +326,12 @@ function readFileContents(filepath) {
           // check if the fileNamePath already exists if it does alert and return
           // make a variable to return
           let isTaken = false;
-          arrayOfYearObjs.forEach((element) => {
+
+          for (const element of arrayOfYearObjs) {
             if (element.fileNamePath === data.fileNamePath) {
               isTaken = true;
             }
-          });
+          }
           if (isTaken) {
             display.showAlert("That file is already loaded!", "error");
             // redisplay
@@ -341,7 +350,7 @@ function readFileContents(filepath) {
           arrayOfYearObjs.push(newYearObject);
           sortArrayByName(arrayOfYearObjs);
           // write the file cab object to disk
-          newYearObject.writeYearToHardDisk(fs);
+          newYearObject.writeYearToHardDisk(fs, display);
           // redisplay
           // get the names for all the years
           // and then send them to the Display
@@ -440,7 +449,7 @@ ipcRenderer.on("Display:showAlert", (event, dataObj) => {
 
 // listen for inedex.js to send data
 ipcRenderer.on("year:add", (event, dataObj) => {
-  if (dataObj.name === "") {
+  if (!dataObj.name) {
     display.showAlert("You did not enter a name for the Year!", "error");
     // redisplay
     // get the names for all the years
@@ -471,11 +480,12 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   // check if the fileNamePath already exists if it does alert and return
   // make a variable to return
   let isTaken = false;
-  arrayOfYearObjs.forEach((element) => {
+
+  for (const element of arrayOfYearObjs) {
     if (element.fileNamePath === dataObj.fileNamePath) {
       isTaken = true;
     }
-  });
+  }
   if (isTaken) {
     display.showAlert("That file is already loaded!", "error");
     // redisplay
@@ -516,7 +526,7 @@ ipcRenderer.on("year:add", (event, dataObj) => {
   arrayOfYearObjs.push(newYear);
   sortArrayByName(arrayOfYearObjs);
   // write the year object to disk
-  newYear.writeYearToHardDisk(fs);
+  newYear.writeYearToHardDisk(fs, display);
 
   // redisplay
   // get the names for all the years
@@ -554,11 +564,12 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   // check if the fileNamePath already exists if it does alert and return
   // make a variable to return
   let isTaken = false;
-  arrayOfYearObjs.forEach((element) => {
+
+  for (const element of arrayOfYearObjs) {
     if (element.fileNamePath === data.fileNamePath) {
       isTaken = true;
     }
-  });
+  }
   if (isTaken) {
     // warningNameTakenAudio.play();
     display.showAlert("That file is already loaded!", "error");
@@ -579,7 +590,7 @@ ipcRenderer.on("yearObj:load", (event, data) => {
   arrayOfYearObjs.push(newYear);
   sortArrayByName(arrayOfYearObjs);
   // write the year object to disk
-  newYear.writeYearToHardDisk(fs);
+  newYear.writeYearToHardDisk(fs, display);
   // redisplayss
   // get the names for all the years
   // and then send them to the Display
@@ -598,12 +609,8 @@ ipcRenderer.on("yearObj:load", (event, data) => {
 el.yearList.addEventListener("click", (e) => {
   // event delegation
   if (e.target.classList.contains("year")) {
-    let yearList = document.getElementsByClassName("year");
-    // create an array from an array like object
-    let newArray = Array.from(yearList);
-    newArray.forEach((item) => {
-      item.classList.remove("active");
-    });
+    const element = document.querySelector(".year.active");
+    removeActiveClass(element);
     // add active class
     e.target.classList.add("active");
 
@@ -613,8 +620,6 @@ el.yearList.addEventListener("click", (e) => {
 
     // Bug fix
     if (isNaN(index)) {
-      //when you click out side of te tab
-      // if it's not a number return
       return;
     }
     yearIndex = index;
@@ -640,12 +645,8 @@ el.monthList.addEventListener("click", (e) => {
   }
   // event delegation
   if (e.target.classList.contains("month")) {
-    let monthList = document.getElementsByClassName("month");
-    // create an array from an array like object
-    let newArray = Array.from(monthList);
-    newArray.forEach((item) => {
-      item.parentElement.classList.remove("active");
-    });
+    const element = document.querySelector(".myFlexItem.active");
+    removeActiveClass(element);
     // add active class
     e.target.parentElement.classList.add("active");
 
@@ -656,8 +657,6 @@ el.monthList.addEventListener("click", (e) => {
 
     // Bug fix
     if (isNaN(monthIndex)) {
-      //when you click out side of te tab
-      // if it's not a number return
       return;
     }
     clickAudio.play();
@@ -701,7 +700,7 @@ el.saveWeightBtn.addEventListener("click", (e) => {
   arrayOfYearObjs[yearIndex].arrayOfMonthObjects[monthIndex].weight = weight;
   addAudio.play();
   // save
-  arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs);
+  arrayOfYearObjs[yearIndex].writeYearToHardDisk(fs, display);
   display.showAlert("You added a weight!", "success", 3000);
   el.myForm.reset();
   display.hideMyForm();
@@ -715,13 +714,8 @@ el.cancelBtn.addEventListener("click", (e) => {
   el.myForm.reset();
   display.hideMyForm();
   // get rid of active class
-  let activeTabList = document.getElementsByClassName("month active");
-  if (activeTabList) {
-    let newArray = Array.from(activeTabList);
-    for (let item of newArray) {
-      item.classList.remove("active");
-    }
-  }
+  const element = document.querySelector(".myFlexItem.active");
+  removeActiveClass(element);
 });
 // *************************************************************
 //  End Weight Form Code
@@ -744,12 +738,7 @@ document.querySelector("#settingsSave").addEventListener("click", (e) => {
   settingsObj.fontSize = fontSizeValue;
   settingsObj.filePathArray = settingsArrayContainer;
   // set auto load true or false
-  let y = document.querySelector("#autoLoad").checked;
-  if (y === true) {
-    settingsObj.autoLoad = true;
-  } else {
-    settingsObj.autoLoad = false;
-  }
+  settingsObj.autoLoad = document.querySelector("#autoLoad").checked;
   // save the object
   settingsStorage.saveSettings(settingsObj);
   addAudio.play();

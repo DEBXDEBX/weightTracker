@@ -33,8 +33,11 @@ h6 {
   background-color: #4e5357;
   border-radius: 15px;
   padding: 0.45rem;
-  color: white;
+  color: var(--primary-color);
+  text-shadow: 2px 2px black;
+  text-align: center;
 }
+
 nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -96,11 +99,7 @@ nav ul li:hover {
 #settingsForm {
   display: none;
 }
-h6 {
-  color: var(--primary-color);
-  text-shadow: 2px 2px black;
-  text-align: center;
-}
+
 /* The gap between the show form icons  */
 #addWeight {
   margin: 0px 46px;
@@ -127,10 +126,6 @@ input[type="checkbox"]:hover {
 .fas:hover {
   cursor: pointer;
 }
-/* settings form  */
-#settingsForm {
-  background-color: white;
-}
 ​ input[type="radio"] {
   margin: 10px;
   font-size: 16px;
@@ -144,6 +139,7 @@ input[type="checkbox"]:hover {
   font-size: 14px;
 }
 #settingsForm {
+  background-color: white;
   border: 20px solid white;
   border-radius: 20px;
   max-width: 70%;
@@ -169,7 +165,7 @@ input[type="checkbox"]:hover {
   border-bottom: thick double #203c63;
   margin: 20px 20px 20px 20px;
   padding: 5px 10px 5px 10px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7);
+  /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7); */
   border-radius: 10% / 50%;
   transition: color 0.3s, box-shadow 0.7s, transform 0.7s;
   transition-timing-function: cubic-bezier(0.45, 1.87, 0.62, 1.6);
